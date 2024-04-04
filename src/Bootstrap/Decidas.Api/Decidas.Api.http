@@ -1,0 +1,6 @@
+@Decidas.Api_HostAddress = http://localhost:5277
+
+GET {{Decidas.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
