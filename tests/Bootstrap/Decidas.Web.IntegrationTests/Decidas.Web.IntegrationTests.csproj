@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\Bootstrap\Decidas.Web\Decidas.Web.csproj" />
+    <ProjectReference Include="..\..\..\src\Shared\Decidas.Testing\Decidas.Testing.csproj" />
   </ItemGroup>
 
 </Project>

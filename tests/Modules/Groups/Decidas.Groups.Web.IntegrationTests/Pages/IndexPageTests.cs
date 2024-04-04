@@ -2,7 +2,7 @@ using Decidas.Testing;
 using Decidas.Web;
 using Microsoft.AspNetCore.Mvc.Testing;
 
-namespace Decidas.Groups.Web.IntegrationTests;
+namespace Decidas.Web.IntegrationTests;
 
 public class IndexPageTests : IClassFixture<TestWebApplicationFactory<Program>>
 {
@@ -19,8 +19,8 @@ public class IndexPageTests : IClassFixture<TestWebApplicationFactory<Program>>
         });
     }
     [Theory]
-    [InlineData("/Groups/")]
-    [InlineData("/Groups/Index")]
+    [InlineData("/")]
+    [InlineData("/Index")]
     public async Task Get_EndpointsReturnSuccessAndCorrectContentType(string url)
     {
         // Arrange
