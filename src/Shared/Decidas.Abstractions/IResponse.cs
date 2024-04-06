@@ -1,5 +1,5 @@
 namespace Decidas.Abstractions;
 
-public interface IQuery<T>
+public interface IResponse
 {
 }

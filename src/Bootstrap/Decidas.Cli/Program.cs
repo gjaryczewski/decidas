@@ -1,6 +1,8 @@
-﻿namespace Decidas.Console;
+﻿using System;
 
-class Program
+namespace Decidas.Cli;
+
+public class Program
 {
     static void Main(string[] args)
     {

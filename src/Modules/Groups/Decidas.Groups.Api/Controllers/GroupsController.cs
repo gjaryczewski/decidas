@@ -1,4 +1,7 @@
 using Decidas.Abstractions;
+using Decidas.Groups.Contracts.Commands;
+using Decidas.Groups.Contracts.Queries;
+using Decidas.Groups.Contracts.Responses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,13 +21,13 @@ public class GroupsController : ControllerBase
     [HttpGet("{groupid:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<GroupDto>> Get(Guid GroupId)
+    public async Task<ActionResult<GetGroupResponse>> Get(Guid groupId)
     {
-        // var Group = await _dispatcher.QueryAsync(new GetGroup { GroupId = GroupId });
-        // if (Group is not null)
-        // {
-        //     return Ok(Group);
-        // }
+        var response = await _dispatcher.QueryAsync(new GetGroupQuery(groupId));
+        if (response is not null)
+        {
+            return Ok(response);
+        }
 
         return NotFound();
     }
@@ -35,6 +38,7 @@ public class GroupsController : ControllerBase
     public async Task<IActionResult> Post(CreateGroupCommand command)
     {
         await _dispatcher.SendAsync(command);
+
         return CreatedAtAction(nameof(Get), new { GroupId = command.GroupId }, null);
     }
 }

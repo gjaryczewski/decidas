@@ -1,7 +1,8 @@
 using Decidas.Abstractions;
-namespace Decidas.Groups.Contracts;
 
-public record CreateGroupCommand(Guid OwnerId, string Currency) : ICommand
+namespace Decidas.Groups.Contracts.Commands;
+
+public record CreateGroupCommand(string GroupName) : ICommand
 {
-    public Guid WalletId { get; init; } = Guid.NewGuid();
+    public Guid GroupId { get; init; } = Guid.NewGuid();
 }
