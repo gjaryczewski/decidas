@@ -1,0 +1,8 @@
+POST {{host}}/groups
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "groupName": "GR 01",
+    "startDate": "2019-06-01"
+}
