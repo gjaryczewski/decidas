@@ -11,4 +11,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Modules\Groups\Decidas.Groups.Api\Decidas.Groups.Api.csproj" />
+    <ProjectReference Include="..\..\Shared\Decidas.Infrastructure\Decidas.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

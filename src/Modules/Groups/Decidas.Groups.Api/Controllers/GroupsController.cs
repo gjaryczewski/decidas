@@ -1,9 +1,7 @@
-using Decidas.Abstractions;
 using Decidas.Groups.Contracts.Commands;
-using Decidas.Groups.Contracts.Queries;
-using Decidas.Groups.Contracts.Responses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Decidas.Abstractions.Commands;
 
 namespace Decidas.Groups.Api.Controllers;
 
@@ -11,34 +9,20 @@ namespace Decidas.Groups.Api.Controllers;
 [Route("[controller]")]
 public class GroupsController : ControllerBase
 {
-    private readonly IDispatcher _dispatcher;
+    private readonly ICommandDispatcher _commands;
 
-    public GroupsController(IDispatcher dispatcher)
+    public GroupsController(ICommandDispatcher commands)
     {
-        _dispatcher = dispatcher;
-    }
-
-    [HttpGet("{groupid:guid}")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<GetGroupResponse>> Get(Guid groupId)
-    {
-        var response = await _dispatcher.QueryAsync(new GetGroupQuery(groupId));
-        if (response is not null)
-        {
-            return Ok(response);
-        }
-
-        return NotFound();
+        _commands = commands;
     }
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Post(CreateGroupCommand command)
+    public async Task<IActionResult> Post(CreateGroupCommand command, CancellationToken cancellationToken)
     {
-        await _dispatcher.SendAsync(command);
+        await _commands.Dispatch<CreateGroupCommand, Guid>(command, cancellationToken);
 
-        return CreatedAtAction(nameof(Get), new { GroupId = command.GroupId }, null);
+        return CreatedAtAction("Get", new { GroupId = command.GroupId }, null);
     }
 }
