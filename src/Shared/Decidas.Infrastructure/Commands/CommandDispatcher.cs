@@ -9,10 +9,10 @@ public class CommandDispatcher : ICommandDispatcher
 
     public CommandDispatcher(IServiceProvider services) => _services = services;
 
-    public Task<TResult> Dispatch<TCommand, TResult>(TCommand command, CancellationToken cancellation)
+    public Task<TResult> SendAsync<TCommand, TResult>(TCommand command, CancellationToken cancellation)
     {
         var handler = _services.GetRequiredService<ICommandHandler<TCommand, TResult>>();
 
-        return handler.Handle(command, cancellation);
+        return handler.HandleAsync(command, cancellation);
     }
 }

@@ -1,13 +1,27 @@
 using Decidas.Abstractions.Commands;
+using Decidas.Abstractions.Events;
+using Decidas.Groups.Application.Repositories;
+using Decidas.Groups.Contracts.Commands;
+using Decidas.Groups.Domain.Entities;
+using Decidas.Groups.Domain.Events;
 
 namespace Decidas.Groups.Application.Commands;
 
-public class CreateGroupHandler<CreateGroupCommand, CreateGroupResult> : ICommandHandler<CreateGroupCommand, CreateGroupResult>
+public class CreateGroupHandler(
+    IGroupRepository repository,
+    IEventDispatcher dispatcher) : ICommandHandler<CreateGroupCommand, CreateGroupResult>
 {
-    public async Task<CreateGroupResult> Handle(CreateGroupCommand command, CancellationToken cancellation)
-    {
-        CreateGroupResult result = default;
+    private readonly IGroupRepository _repository = repository;
+    private readonly IEventDispatcher _dispatcher = dispatcher;
 
-        return await Task.FromResult<CreateGroupResult>(result);
+    public async Task<CreateGroupResult> HandleAsync(CreateGroupCommand command, CancellationToken cancellation)
+    {
+        var group = new Group(command.Name, command.StartDate);
+
+        await _repository.AddAsync(group, cancellation);
+
+        await _dispatcher.PublishAsync<GroupCreatedEvent>(new GroupCreatedEvent(group.Id, group.Name), cancellation);
+
+        return CreateGroupResult.From(group);
     }
 }

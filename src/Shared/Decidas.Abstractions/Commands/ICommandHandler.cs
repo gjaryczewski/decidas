@@ -1,9 +1,6 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
+﻿namespace Decidas.Abstractions.Commands;
 
-namespace Decidas.Abstractions.Commands;
-
-public interface ICommandHandler<in TCommand, TResult>
+public interface ICommandHandler<TCommand, TResult>
 {
-    Task<TResult> Handle(TCommand command, CancellationToken cancellation);
+    Task<TResult> HandleAsync(TCommand command, CancellationToken cancellation);
 }
