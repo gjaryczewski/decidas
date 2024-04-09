@@ -13,14 +13,14 @@
         <section>
             <form id="account" method="post">
                 <div class="form-group">
-                    <label asp-for="Request.Name"></label>
-                    <input asp-for="Request.Name" class="form-control" />
-                    <span asp-validation-for="Request.Name" class="text-danger"></span>
+                    <label asp-for="RequestModel.Name"></label>
+                    <input asp-for="RequestModel.Name" class="form-control" />
+                    <span asp-validation-for="RequestModel.Name" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Request.StartDate"></label>
-                    <input asp-for="Request.StartDate" class="form-control" type="date" />
-                    <span asp-validation-for="Request.StartDate" class="text-danger"></span>
+                    <label asp-for="RequestModel.StartDate"></label>
+                    <input asp-for="RequestModel.StartDate" class="form-control" type="date" />
+                    <span asp-validation-for="RequestModel.StartDate" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-danger">Create</button>

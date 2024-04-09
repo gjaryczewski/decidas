@@ -1,5 +1,5 @@
 using Decidas.Web.Pages.Groups;
-using Microsoft.AspNetCore.Components.RenderTree;
+using System.Reflection;
 
 namespace Decidas.Web;
 
@@ -12,6 +12,32 @@ public class Program
         // Add services to the container.
         builder.Services.AddRazorPages();
         builder.Services.AddSingleton<IDispatcher, Dispatcher>();
+
+        var interfaceName = "ICommandHandler";
+        var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+        foreach (var a in assemblies)
+        {
+            var types = a.GetExportedTypes();
+            foreach (var t in types)
+            {
+                var interfaces = t.GetInterfaces();
+                foreach (var i in interfaces)
+                {
+                    if (!i.IsGenericType && i.Name == interfaceName
+                        || i.IsGenericType && i.Name.StartsWith($"{interfaceName}`"))
+                    {
+                        Console.WriteLine($"Interface name = {i.FullName}");
+                        var assignbleTypes = AppDomain.CurrentDomain.GetAssemblies()
+                            .SelectMany(s => s.GetTypes())
+                            .Where(p => i.IsAssignableFrom(p));
+                        foreach (var at in assignbleTypes)
+                        {
+                            Console.WriteLine($"Assignable type = {at.FullName}");
+                        }
+                    }
+                }
+            }
+        }
 
         var app = builder.Build();
 

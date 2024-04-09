@@ -20,7 +20,7 @@ public class CreateModel : PageModel
     }
 
     [BindProperty]
-    public CreateGroupRequest Request { get; set; }
+    public CreateGroupRequest RequestModel { get; set; }
 
     public async Task<IActionResult> OnPostAsync(string returnUrl = null, CancellationToken cancel = default)
     {
@@ -32,8 +32,8 @@ public class CreateModel : PageModel
         }
 
         var command = new CreateGroupCommand(
-            Request.Name,
-            DateOnly.FromDateTime(Request.StartDate.Date));
+            RequestModel.Name,
+            DateOnly.FromDateTime(RequestModel.StartDate.Date));
 
         var result = await _dispatcher.Send(command, cancel);
 
@@ -51,24 +51,41 @@ public record Result(bool IsSuccess);
 
 public interface IDispatcher
 {
-    Task<Result> Send(ICommand command, CancellationToken cancel);
+    Task<Result> Send<T>(T command, CancellationToken cancel);
 }
 
 public class Dispatcher : IDispatcher
 {
-    private readonly ILogger<Dispatcher> _logger;
+    private readonly IServiceProvider _services;
 
-    public Dispatcher(ILogger<Dispatcher> logger)
+    public Dispatcher(IServiceProvider services) => _services = services;
+
+    public Task<Result> Send<CreateGroupCommand>(CreateGroupCommand command, CancellationToken cancel)
+    {
+        var handler = _services.GetRequiredService<ICommandHandler<CreateGroupCommand>>();
+
+        return handler.Handle(command, cancel);
+    }
+}
+
+public interface ICommandHandler<T>
+{
+    Task<Result> Handle(T command, CancellationToken cancel);
+}
+
+public class CreateGroupHandler : ICommandHandler<CreateGroupCommand>
+{
+    private readonly ILogger<CreateGroupHandler> _logger;
+
+    public CreateGroupHandler(ILogger<CreateGroupHandler> logger)
     {
         _logger = logger;
     }
 
-    public Task<Result> Send(ICommand command, CancellationToken cancel)
+    public Task<Result> Handle(CreateGroupCommand command, CancellationToken cancel)
     {
-        var result = new Result(true);
+         _logger.LogInformation($"The group '{command.Name}' has been created.");
 
-        _logger.LogInformation($"The group has been created.");
-
-        return Task.FromResult(result);
+       return Task.FromResult(new Result(true));
     }
 }
