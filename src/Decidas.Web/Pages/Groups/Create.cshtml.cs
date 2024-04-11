@@ -29,8 +29,6 @@ public class CreateModel : PageModel
 
     public async Task<IActionResult> OnPostAsync(string returnUrl = null, CancellationToken cancel = default)
     {
-        returnUrl ??= Url.Content("~/");
-
         if (!ModelState.IsValid)
         {
             return Page();
@@ -46,6 +44,8 @@ public class CreateModel : PageModel
         {
             return Page();
         }
+        else if (returnUrl is null) ??= Url.Content("~/");
+)
 
         return LocalRedirect(returnUrl);
     }

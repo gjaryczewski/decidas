@@ -1,4 +1,5 @@
 using Decidas.Web.Pages.Groups;
+using Microsoft.EntityFrameworkCore;
 
 namespace Decidas.Web;
 
@@ -11,8 +12,12 @@ public class Program
         // Add services to the container.
         builder.Services.AddRazorPages();
 
-        builder.Services.AddSingleton<ICommandDispatcher, CommandDispatcher>();
+        builder.Services.AddDbContext<AppDbContext>(options
+            => options.UseSqlServer("name=ConnectionStrings:AppDb"));
+
+        builder.Services.AddTransient<ICommandDispatcher, CommandDispatcher>();
         builder.Services.AddTransient<ICommandHandler<CreateGroupCommand>, CreateGroupCommandHandler>();
+        builder.Services.AddTransient<IGroupRepository, GroupRepository>();
 
         var app = builder.Build();
 
