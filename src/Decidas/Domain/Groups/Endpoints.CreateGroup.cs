@@ -1,4 +1,4 @@
-namespace Decidas.Areas.Groups.Endpoints;
+namespace Decodas.Domain.Groups.Endpoints;
 
 public record CreateGroup(string Name, DateOnly StartDate, bool IsOpen);
 

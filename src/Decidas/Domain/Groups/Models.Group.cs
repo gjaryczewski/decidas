@@ -1,6 +1,6 @@
 using Decidas.Core.Exceptions;
 
-namespace Decidas.Areas.Groups;
+namespace Decodas.Domain.Groups;
 
 public class Group
 {

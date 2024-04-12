@@ -1,4 +1,4 @@
-namespace Decidas.Areas.Groups;
+namespace Decodas.Domain.Groups;
 
 public record GroupsFeatures(
     bool CloseGroup = true,
