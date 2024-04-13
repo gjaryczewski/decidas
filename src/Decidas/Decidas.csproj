@@ -2,18 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <Nullable>disable</Nullable>
+    <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="MediatR" Version="12.2.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.4">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.4" />
-  </ItemGroup>
 
 </Project>

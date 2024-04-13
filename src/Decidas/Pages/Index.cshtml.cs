@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Decidas.Web.Pages;
+namespace Decidas.Pages;
 
 public class IndexModel : PageModel
 {

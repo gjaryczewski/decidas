@@ -1,8 +1,4 @@
-using Decidas.Web.Pages.Groups;
-using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.EntityFrameworkCore;
-
-namespace Decidas.Web;
+namespace Decidas;
 
 public class Program
 {
@@ -12,21 +8,6 @@ public class Program
 
         // Add services to the container.
         builder.Services.AddRazorPages();
-
-        builder.Services.Configure<RazorViewEngineOptions>(options =>
-        {
-            options.AreaViewLocationFormats.Clear();
-            options.AreaViewLocationFormats.Add("/Domain/{2}/Pages/{1}/{0}.cshtml");
-            options.AreaViewLocationFormats.Add("/Domain/{2}/Pages/Shared/{0}.cshtml");
-            options.AreaViewLocationFormats.Add("/Pages/Shared/{0}.cshtml");
-        });
-
-        builder.Services.AddDbContext<Database>(options
-            => options.UseSqlServer("name=ConnectionStrings:Main"));
-
-        builder.Services.AddTransient<ICommandDispatcher, CommandDispatcher>();
-        builder.Services.AddTransient<ICommandHandler<CreateGroupCommand>, CreateGroupCommandHandler>();
-        builder.Services.AddTransient<IGroupRepository, GroupRepository>();
 
         var app = builder.Build();
 
