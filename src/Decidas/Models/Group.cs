@@ -14,7 +14,7 @@ public class Group
 
     public DateOnly? CeaseDate { get; private set; }
 
-    public bool IsActive { get; } => CeaseDate is null;
+    public bool IsActive { get; private set; }
 
     public ICollection<Keeper> Keepers { get; private set; }
 
