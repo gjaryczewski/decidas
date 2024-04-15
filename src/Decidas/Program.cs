@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer;
+
 namespace Decidas;
 
 public class Program
@@ -6,8 +9,10 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        // Add services to the container.
         builder.Services.AddRazorPages();
+
+        builder.Services.AddDbContext<MainDbContext>(
+            options => options.UseSqlServer("name=ConnectionStrings:MainDb"));
 
         var app = builder.Build();
 

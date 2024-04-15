@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.SqlServer;
 
 namespace Decidas;
 
-public class Database : DbContext
+public class MainDbContext : DbContext
 {
     public DbSet<Account> Accounts { get; set; }
 
@@ -18,7 +18,7 @@ public class Database : DbContext
 
     public DbSet<Topic> Topics { get; set; }
 
-    public Database(DbContextOptions<Database> options) : base(options) {}
+    public MainDbContext(DbContextOptions<MainDbContext> options) : base(options) {}
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
