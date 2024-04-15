@@ -1,0 +1,55 @@
+@page
+@model Decidas.Pages.Groups.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Group</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Group.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Group.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Group.City)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Group.City)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Group.SocialLink)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Group.SocialLink)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Group.StartDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Group.StartDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Group.CeaseDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Group.CeaseDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Group.IsActive)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Group.IsActive)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Group.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

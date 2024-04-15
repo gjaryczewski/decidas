@@ -1,0 +1,48 @@
+@page
+@model Decidas.Pages.Gatherings.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Gathering[0].Time)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gathering[0].Place)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gathering[0].MapLink)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Gathering) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Place)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MapLink)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
