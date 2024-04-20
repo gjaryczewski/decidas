@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Decidas;
 using Decidas.Models;
 
-namespace Decidas.Pages.Gatherings
+namespace Decidas.Pages_Gatherings
 {
     public class EditModel : PageModel
     {

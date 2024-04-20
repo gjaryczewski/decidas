@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Decidas;
 using Decidas.Models;
 
-namespace Decidas.Pages.Gatherings
+namespace Decidas.Pages_Gatherings
 {
     public class CreateModel : PageModel
     {
