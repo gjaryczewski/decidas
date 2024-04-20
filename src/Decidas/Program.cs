@@ -38,6 +38,16 @@ public class Program
 
         var app = builder.Build();
 
+        if (app.Environment.IsDevelopment())
+        {
+            using (var scope = app.Services.CreateScope())
+            {
+                var service = scope.ServiceProvider;
+                var context = service.GetService<MainDbContext>();
+                Data.DevelopmentInitialData.Publish(context);
+            }
+        }
+
         if (!app.Environment.IsDevelopment())
         {
             app.UseExceptionHandler("/Error");
