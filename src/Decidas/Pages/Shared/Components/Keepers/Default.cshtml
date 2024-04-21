@@ -1,0 +1,8 @@
+@model List<Decidas.Models.Account>
+<h3>Keepers</h3>
+<ul>
+    @foreach (var account in Model)
+    {
+        <li>@account.Name</li>
+    }
+</ul>
