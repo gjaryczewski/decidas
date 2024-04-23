@@ -3,7 +3,7 @@ using Xunit;
 
 namespace Decidas.Tests;
 
-public class BasicTest : IClassFixture<WebApplicationFactory<Program>>
+public class BasicTests : IClassFixture<WebApplicationFactory<Program>>
 {
     private readonly WebApplicationFactory<Program> _factory;
 
@@ -28,6 +28,6 @@ public class BasicTest : IClassFixture<WebApplicationFactory<Program>>
         // Assert
         response.EnsureSuccessStatusCode();
         Assert.Equal("text/html; charset=utf-8", 
-            response.Content.Headers.ContentType.ToString());
+            response.Content.Headers.ContentType!.ToString());
     }
 }
