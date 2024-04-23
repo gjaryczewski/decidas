@@ -27,7 +27,7 @@ public class BasicTests : IClassFixture<WebApplicationFactory<Program>>
 
         // Assert
         response.EnsureSuccessStatusCode();
-        Assert.Equal("text/html; charset=utf-8", 
+        Assert.Equal("text/html; charset=utf-8",
             response.Content.Headers.ContentType!.ToString());
     }
 }

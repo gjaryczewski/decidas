@@ -18,13 +18,19 @@ public class CustomWebApplicationFactory<TProgram>
                 d => d.ServiceType ==
                     typeof(DbContextOptions<MainDbContext>));
 
-            services.Remove(dbContextDescriptor!);
+            if (dbContextDescriptor is not null)
+            {
+                services.Remove(dbContextDescriptor);
+            }
 
             var dbConnectionDescriptor = services.SingleOrDefault(
                 d => d.ServiceType ==
                     typeof(DbConnection));
 
-            services.Remove(dbConnectionDescriptor!);
+            if (dbConnectionDescriptor is not null)
+            {
+                services.Remove(dbConnectionDescriptor);
+            }
 
             // NOTE Creates open SqliteConnection so EF won't automatically close it.
             services.AddSingleton<DbConnection>(container =>
