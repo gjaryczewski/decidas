@@ -30,7 +30,7 @@ public static class DevelopmentInitialData
         db.Keepers.RemoveRange(db.Keepers);
         db.Members.RemoveRange(db.Members);
         db.Accounts.RemoveRange(db.Accounts);
-        db.SaveChanges();
+        // db.SaveChanges();
     }
 
     private static void PublishAccounts(MainDbContext db, Guid[] keepers, Guid[] members)
