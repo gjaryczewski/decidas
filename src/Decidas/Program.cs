@@ -8,6 +8,13 @@ public class Program
 
         builder.Services.AddRazorPages();
 
+        builder.Services.Configure<RouteOptions>(options =>
+        {
+            options.LowercaseUrls = true;
+            options.LowercaseQueryStrings = true;
+            options.AppendTrailingSlash = true;
+        });
+
         var app = builder.Build();
 
         if (app.Environment.IsDevelopment())
@@ -22,9 +29,7 @@ public class Program
 
         app.UseHttpsRedirection();
         app.UseStaticFiles();
-
         app.UseRouting();
-
         app.UseAuthorization();
 
         app.MapRazorPages();
