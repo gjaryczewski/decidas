@@ -1,3 +1,5 @@
+using Decidas.Areas.Groups;
+
 namespace Decidas;
 
 public class Program
@@ -7,6 +9,10 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         builder.Services.AddRazorPages();
+
+        builder.Services.AddControllers();
+
+        builder.Services.AddGroupsFeatures();
 
         builder.Services.Configure<RouteOptions>(options =>
         {
@@ -20,6 +26,8 @@ public class Program
         if (app.Environment.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
+            app.UseSwagger();
+            app.UseSwaggerUI();
         }
         else
         {
@@ -28,11 +36,14 @@ public class Program
         }
 
         app.UseHttpsRedirection();
+
         app.UseStaticFiles();
+
         app.UseRouting();
-        app.UseAuthorization();
 
         app.MapRazorPages();
+
+        app.MapControllers();
 
         app.Run();
     }
