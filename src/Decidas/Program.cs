@@ -11,9 +11,8 @@ public class Program
 
         builder.Services.AddRazorPages();
         builder.Services.AddControllers();
-
-        builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+        builder.Services.AddProblemDetails();
 
         builder.Services.AddCore();
         builder.Services.AddGroupsFeatures();
@@ -27,15 +26,19 @@ public class Program
 
         var app = builder.Build();
 
+        app.UseExceptionHandler();
+
         if (app.Environment.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
+
             app.UseSwagger();
             app.UseSwaggerUI();
         }
         else
         {
             app.UseExceptionHandler("/Error");
+
             app.UseHsts();
         }
 

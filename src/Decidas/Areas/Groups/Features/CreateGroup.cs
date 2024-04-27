@@ -35,8 +35,6 @@ internal sealed class TooOldStartDateError : DomainError
 {
     public TooOldStartDateError(DateOnly startDate)
     {
-        Location = typeof(CreateGroupCommand).FullName!;
-        Code = nameof(TooOldStartDateError);
         Details = $"Start date {startDate} is earlier than oldest possible {GroupsConstraints.OldestStartDate}.";
     }
 }
