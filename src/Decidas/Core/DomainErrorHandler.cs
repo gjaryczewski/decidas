@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Decidas.Core;
 
-internal sealed class DomainErrorHandler : IExceptionHandler
+public class DomainErrorHandler : IExceptionHandler
 {
     private readonly ILogger<DomainErrorHandler> _logger;
 

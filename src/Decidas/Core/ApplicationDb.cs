@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Decidas.Core;
 
-public class ApplicationDb(DbContextOptions<ApplicationDb> options) : DbContext(options)
+public partial class ApplicationDb(DbContextOptions<ApplicationDb> options) : DbContext(options)
 {
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

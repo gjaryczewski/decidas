@@ -1,6 +1,6 @@
 namespace Decidas.Core;
 
-public sealed class DomainEventCollector
+public class DomainEventCollector
 {
     private List<DomainEvent> _events = new();
 

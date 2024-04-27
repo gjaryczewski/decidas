@@ -1,43 +1,53 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Decidas.Core;
 
 namespace Decidas.Areas.Groups.Models;
 
-internal readonly record struct GroupId(Guid Value);
-
-internal sealed class Group
+public class Group : DomainEntity
 {
     public GroupId Id { get; private set; }
 
     public required string Name { get; set; }
 
-    public DateOnly StartDate { get; private set; }
+    public StartDate StartDate { get; private set; }
 
     public Group() {}
 
     public static Group Create(string name, DateOnly startDate)
     {
-        return new()
+        var group = new Group
         {
             Id = new(Guid.NewGuid()),
             Name = name,
-            StartDate = startDate
+            StartDate = new(startDate)
         };
+
+        group.AddDomainEvent(new GroupCreatedEvent(group.Id.Value));
+
+        return group;
     }
 }
 
-internal class GroupConfiguration : IEntityTypeConfiguration<Group>
+public readonly record struct GroupId(Guid Value);
+
+public readonly record struct StartDate
 {
-    public void Configure(EntityTypeBuilder<Group> builder)
+    public DateOnly Value { get; init; }
+
+    public StartDate(DateOnly value)
     {
-        builder.ToTable("Groups");
+        if (value < GroupsConstraints.OldestStartDate)
+        {
+            throw new TooOldStartDateError(value);
+        }
 
-        builder.HasKey(group => group.Id);
+        Value = value;
+    }
+}
 
-        builder.Property(group => group.Id).HasConversion(id => id.Value, value => new GroupId(value));
-
-        builder.Property(group => group.Name).HasColumnType("nvarchar(100)").IsRequired();
-
-        builder.Property(group => group.StartDate).HasColumnType("date").IsRequired();
+public class TooOldStartDateError : DomainError
+{
+    public TooOldStartDateError(DateOnly startDate)
+    {
+        Details = $"Start date {startDate} is earlier than oldest possible {GroupsConstraints.OldestStartDate}.";
     }
 }

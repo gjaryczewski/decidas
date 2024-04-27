@@ -1,4 +1,5 @@
 using Decidas.Core;
+using Group = Decidas.Areas.Groups.Models.Group;
 
 namespace Decidas.Areas.Groups.Features;
 
@@ -6,37 +7,17 @@ public record struct CreateGroupRequest(string Name, DateTime StartDate);
 
 public record struct CreateGroupResponse(Guid Id);
 
-public sealed class CreateGroupCommand(ILogger<CreateGroupCommand> _logger, DomainEventCollector _domainEvents)
+public class CreateGroupCommand(ILogger<CreateGroupCommand> _logger, ApplicationDb _db)
 {
-    public Task<CreateGroupResponse> ProcessAsync(CreateGroupRequest request, CancellationToken cancel)
+    public async Task<CreateGroupResponse> ProcessAsync(CreateGroupRequest request, CancellationToken cancel)
     {
         _logger.LogInformation("Processing CreateGroup command for {groupName}", request.Name);
 
-        ValidateRequest(request);
+        var group = Group.Create(request.Name, DateOnly.FromDateTime(request.StartDate));
 
-        CreateGroupResponse result = new(Guid.Empty);
+        await _db.Groups.AddAsync(group);
+        await _db.SaveChangesAsync();
 
-        _domainEvents.Collect(new GroupCreatedEvent(result.Id));
-
-        return Task.FromResult(result);
-    }
-
-    private static void ValidateRequest(CreateGroupRequest request)
-    {
-        var startDate = DateOnly.FromDateTime(request.StartDate);
-        if (startDate < GroupsConstraints.OldestStartDate)
-        {
-            throw new TooOldStartDateError(startDate);
-        }
+        return new CreateGroupResponse(group.Id.Value);
     }
 }
-
-internal sealed class TooOldStartDateError : DomainError
-{
-    public TooOldStartDateError(DateOnly startDate)
-    {
-        Details = $"Start date {startDate} is earlier than oldest possible {GroupsConstraints.OldestStartDate}.";
-    }
-}
-
-internal sealed class GroupCreatedEvent(Guid id) : DomainEvent(id) {}
