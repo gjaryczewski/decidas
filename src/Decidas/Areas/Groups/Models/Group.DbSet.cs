@@ -1,7 +1,6 @@
 
 using Decidas.Areas.Groups.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Decidas.Core;
 

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Decidas.Areas.Groups.Models;
 
-public class GroupEntity : IEntityTypeConfiguration<Group>
+public class GroupDbConfiguration : IEntityTypeConfiguration<Group>
 {
     public void Configure(EntityTypeBuilder<Group> builder)
     {
@@ -19,6 +19,6 @@ public class GroupEntity : IEntityTypeConfiguration<Group>
         builder.Property(group => group.StartDate)
             .HasColumnType("date")
             .IsRequired()
-            .HasConversion(startDate => startDate.Value, value => new StartDate(value));
+            .HasConversion(startDate => startDate.Value, value => new GroupStartDate(value));
     }
 }

@@ -1,6 +1,5 @@
 using Decidas.Areas.Groups;
 using Decidas.Core;
-using Microsoft.EntityFrameworkCore;
 
 namespace Decidas;
 
@@ -17,8 +16,8 @@ public class Program
         builder.Services.AddSwaggerGen();
         builder.Services.AddProblemDetails();
 
-        builder.Services.AddCore(configuration);
-        builder.Services.AddGroupsFeatures();
+        builder.Services.AddCoreServices(configuration);
+        builder.Services.AddAreaGroupsServices();
 
         builder.Services.Configure<RouteOptions>(options =>
         {

@@ -8,7 +8,7 @@ public class Group : DomainEntity
 
     public required string Name { get; set; }
 
-    public StartDate StartDate { get; private set; }
+    public GroupStartDate StartDate { get; private set; }
 
     public Group() {}
 
@@ -29,13 +29,15 @@ public class Group : DomainEntity
 
 public readonly record struct GroupId(Guid Value);
 
-public readonly record struct StartDate
+public readonly record struct GroupStartDate
 {
     public DateOnly Value { get; init; }
 
-    public StartDate(DateOnly value)
+    public static readonly DateOnly Oldest = new(2018, 1, 1);
+
+    public GroupStartDate(DateOnly value)
     {
-        if (value < GroupsConstraints.OldestStartDate)
+        if (value < Oldest)
         {
             throw new TooOldStartDateError(value);
         }
@@ -48,6 +50,8 @@ public class TooOldStartDateError : DomainError
 {
     public TooOldStartDateError(DateOnly startDate)
     {
-        Details = $"Start date {startDate} is earlier than oldest possible {GroupsConstraints.OldestStartDate}.";
+        Details = $"Start date {startDate} is earlier than oldest possible {GroupStartDate.Oldest}.";
     }
 }
+
+public class GroupCreatedEvent(Guid id) : DomainEvent(id) {}

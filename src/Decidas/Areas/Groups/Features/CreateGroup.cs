@@ -1,5 +1,6 @@
 using Decidas.Core;
 using Group = Decidas.Areas.Groups.Models.Group;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Decidas.Areas.Groups.Features;
 
@@ -15,9 +16,22 @@ public class CreateGroupCommand(ILogger<CreateGroupCommand> _logger, Application
 
         var group = Group.Create(request.Name, DateOnly.FromDateTime(request.StartDate));
 
-        await _db.Groups.AddAsync(group);
-        await _db.SaveChangesAsync();
+        await _db.Groups.AddAsync(group, cancel);
+        await _db.SaveChangesAsync(cancel);
 
         return new CreateGroupResponse(group.Id.Value);
+    }
+}
+
+[ApiController]
+[Route("api/groups")]
+public class CreateGroupEndpoint(CreateGroupCommand _command) : ControllerBase
+{
+    [HttpPost]
+    public async Task<ActionResult<CreateGroupResponse>> HandleAsync([FromBody]CreateGroupRequest request, CancellationToken cancel)
+    {
+        var response = await _command.ProcessAsync(request, cancel);
+
+        return CreatedAtAction(nameof(HandleAsync), response.Id);
     }
 }

@@ -3,14 +3,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Decidas.Core;
 
-public static class CoreServices
+public static class DependencyInjection
 {
-    public static IServiceCollection AddCore(this IServiceCollection services, IConfigurationManager configuration)
+    public static IServiceCollection AddCoreServices(this IServiceCollection services, IConfigurationManager configuration)
     {
         services.AddDbContext<ApplicationDb>(options =>
             options.UseSqlServer(configuration.GetConnectionString("ApplicationDb")));
 
-        services.AddTransient<DomainEventCollector>();
         services.AddExceptionHandler<DomainErrorHandler>();
 
         return services;
