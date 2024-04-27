@@ -1,5 +1,4 @@
 using Decidas.Areas.Groups.Features;
-using Decidas.Areas.Groups.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Decidas.Areas.Groups;

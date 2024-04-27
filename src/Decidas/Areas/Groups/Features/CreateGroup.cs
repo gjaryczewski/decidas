@@ -2,7 +2,7 @@ using Decidas.Core;
 
 namespace Decidas.Areas.Groups.Features;
 
-public record struct CreateGroupRequest(string Name, DateOnly StartDate);
+public record struct CreateGroupRequest(string Name, DateTime StartDate);
 
 public record struct CreateGroupResponse(Guid Id);
 
@@ -21,11 +21,12 @@ public sealed class CreateGroupCommand(ILogger<CreateGroupCommand> _logger, Doma
         return Task.FromResult(result);
     }
 
-    private void ValidateRequest(CreateGroupRequest request)
+    private static void ValidateRequest(CreateGroupRequest request)
     {
-        if (request.StartDate < GroupsConstraints.OldestStartDate)
+        var startDate = DateOnly.FromDateTime(request.StartDate);
+        if (startDate < GroupsConstraints.OldestStartDate)
         {
-            throw new TooOldStartDateError(request.StartDate);
+            throw new TooOldStartDateError(startDate);
         }
     }
 }

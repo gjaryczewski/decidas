@@ -1,0 +1,23 @@
+@hostname = localhost
+@port = 5001
+@host = {{hostname}}:{{port}}
+
+### Create group successfully
+POST https://{{host}}/api/v1/groups HTTP/1.1
+accept: text/plain
+content-type: application/json
+
+{
+  "name": "DG1",
+  "startDate": "2024-04-27T08:24:11.809Z"
+}
+
+### Error during validation of start date
+POST https://{{host}}/api/v1/groups HTTP/1.1
+accept: text/plain
+content-type: application/json
+
+{
+  "name": "DG1",
+  "startDate": "1901-01-01T08:24:11.809Z"
+}

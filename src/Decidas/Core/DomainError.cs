@@ -1,6 +1,6 @@
 namespace Decidas.Core;
 
-internal class DomainError : Exception
+public class DomainError : Exception
 {
     public string Location { get; internal set; } = string.Empty;
 
