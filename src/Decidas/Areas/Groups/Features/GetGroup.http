@@ -1,0 +1,13 @@
+@hostname = localhost
+@port = 5001
+@host = {{hostname}}:{{port}}
+
+### Get group successfully
+GET https://{{host}}/api/v1/groups?id=859108f2-8950-445e-a90d-28bad8d7ca05 HTTP/1.1
+accept: text/plain
+content-type: application/json
+
+### Not forund
+GET https://{{host}}/api/v1/groups?id=00000000-0000-0000-0000-000000000000 HTTP/1.1
+accept: text/plain
+content-type: application/json
