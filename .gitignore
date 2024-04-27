@@ -484,4 +484,4 @@ $RECYCLE.BIN/
 *.swp
 
 # Temporarily ignore
-Migrations/
+src/Decidas/Migrations/
