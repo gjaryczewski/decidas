@@ -11,9 +11,9 @@ public class GroupsEndpoints(ILogger<GroupsEndpoints> logger, CreateGroupCommand
     private readonly CreateGroupCommand _command = command;
 
     [HttpPost]
-    public async Task<ActionResult<CreateGroupResponse>> Create([FromBody]CreateGroupRequest request)
+    public async Task<ActionResult<CreateGroupResponse>> CreateAsync([FromBody]CreateGroupRequest request, CancellationToken cancel)
     {
-        var response = await _command.ProcessAsync(request);
+        var response = await _command.ProcessAsync(request, cancel);
 
         return Created();
     }

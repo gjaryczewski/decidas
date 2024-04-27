@@ -8,7 +8,7 @@ public record struct CreateGroupResponse(Guid Id);
 
 public sealed class CreateGroupCommand(ILogger<CreateGroupCommand> _logger, DomainEventCollector _domainEvents)
 {
-    public Task<CreateGroupResponse> ProcessAsync(CreateGroupRequest request)
+    public Task<CreateGroupResponse> ProcessAsync(CreateGroupRequest request, CancellationToken cancel)
     {
         _logger.LogInformation("Processing CreateGroup command for {groupName}", request.Name);
 

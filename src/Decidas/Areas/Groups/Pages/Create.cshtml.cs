@@ -4,22 +4,35 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Decidas.Areas.Groups.Pages;
 
-public class CreateGroupModel(ILogger<CreateGroupModel> logger, CreateGroupCommand command) : PageModel
+public class CreateGroupModel : PageModel
 {
-    private readonly ILogger<CreateGroupModel> _logger = logger;
-    private readonly CreateGroupCommand _command = command;
+    private readonly ILogger<CreateGroupModel> _logger;
+    private readonly CreateGroupCommand _command;
 
     [BindProperty]
-    public CreateGroupRequest FormModel { get; set; }
+    public string Name { get; set; } = string.Empty;
+
+    [BindProperty]
+    public DateTime StartDate { get; set; }
+
+    public CreateGroupModel(ILogger<CreateGroupModel> logger, CreateGroupCommand command)
+    {
+        _logger = logger;
+        _command = command;
+    }
 
     public void OnGet()
     {
+        _logger.LogTrace($"Rendering page {nameof(CreateGroupModel)}");
     }
 
-    public async Task<RedirectResult> OnPostAsync()
+    public async Task<IActionResult> OnPostAsync(CancellationToken cancel)
     {
-        var response = await _command.ProcessAsync(FormModel);
+        _logger.LogTrace($"Processing OnPost of {nameof(CreateGroupModel)}");
 
-        return Redirect("/");
+        var request = new CreateGroupRequest(Name, StartDate);
+        var response = await _command.ProcessAsync(request, cancel);
+
+        return RedirectToPage("./Index");
     }
 }
