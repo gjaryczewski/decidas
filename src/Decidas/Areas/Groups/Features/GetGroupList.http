@@ -1,5 +1,22 @@
 @host = localhost:5001
 
-### Get group list
+### Get group list (page default 1, per page default 30)
 GET https://{{host}}/api/groups HTTP/1.1
+accept: text/plain
+
+### Get group list, page 1 (per page default 30)
+GET https://{{host}}/api/groups/1 HTTP/1.1
+accept: text/plain
+
+
+### Get group list, page 2, per page 5
+GET https://{{host}}/api/groups/2/5 HTTP/1.1
+accept: text/plain
+
+### Get group list, page -1 (min. 1)
+GET https://{{host}}/api/groups/-1 HTTP/1.1
+accept: text/plain
+
+### Get group list, page 3, perPage 1234 (max. 100)
+GET https://{{host}}/api/groups/3/1234 HTTP/1.1
 accept: text/plain
