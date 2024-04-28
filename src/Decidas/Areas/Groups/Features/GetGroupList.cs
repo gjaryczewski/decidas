@@ -11,7 +11,7 @@ public record struct GroupListItem(Guid Id, string Name, DateTime StartDate);
 
 public class GroupList(int page, int perPage)
 {
-    public List<GroupListItem> Items { get; } = new();
+    public List<GroupListItem> Items { get; } = [];
 
     public int Count => Items.Count;
 

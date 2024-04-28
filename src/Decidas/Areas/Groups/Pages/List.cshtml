@@ -1,0 +1,15 @@
+@page
+@model GetGroupListModel
+@{
+    ViewData["Title"] = "Group list";
+}
+
+<div class="container">
+  <h1>Group list</h1>
+  <ul class="list-group">
+@foreach (var item in @Model.Items)
+{
+    <li class="list-group-item">@item.Name</li>
+}
+  </ul>
+</div>
