@@ -7,20 +7,20 @@ namespace Decidas.Areas.Groups.Features;
 
 public record struct GetGroupRequest(Guid Id);
 
-public record struct GetGroupResponse(Guid Id, string Name, DateTime StartDate);
+public record struct GroupDetails(Guid Id, string Name, DateTime StartDate);
 
 public class GetGroupQuery(ILogger<GetGroupQuery> _logger, ApplicationDb _db)
 {
-    public async Task<GetGroupResponse?> ProcessAsync(GetGroupRequest request, CancellationToken cancel)
+    public async Task<GroupDetails?> ExecuteAsync(GetGroupRequest request, CancellationToken cancel)
     {
-        _logger.LogInformation("Processing GetGroup query for {groupId}", request.Id);
+        _logger.LogInformation("Executing GetGroup query for {groupId}", request.Id);
 
         var groupId = new GroupId(request.Id);
 
-        var group = await _db.Groups.FirstAsync(group => group.Id == groupId, cancel);
+        var group = await _db.Groups.FirstOrDefaultAsync(group => group.Id == groupId, cancel);
 
         return group is not null
-            ? new GetGroupResponse(
+            ? new GroupDetails(
                 group.Id.Value,
                 group.Name,
                 group.StartDate.Value.ToDateTime(TimeOnly.MinValue))
@@ -30,14 +30,16 @@ public class GetGroupQuery(ILogger<GetGroupQuery> _logger, ApplicationDb _db)
 
 [ApiController]
 [Route("api/groups")]
-public class GetGroupEndpoint(GetGroupQuery _query) : ControllerBase
+public class GetGroupEndpoint(ILogger<GetGroupEndpoint> _logger, GetGroupQuery _query) : ControllerBase
 {
     [HttpGet("{id:guid}")]
-    public async Task<ActionResult<GetGroupResponse>> HandleAsync(Guid id, CancellationToken cancel)
+    public async Task<ActionResult<GroupDetails>> HandleAsync(Guid id, CancellationToken cancel)
     {
+        _logger.LogInformation("Handling GetGroup request for {id}", id);
+
         var request = new GetGroupRequest(id);
 
-        var response = await _query.ProcessAsync(request, cancel);
+        var response = await _query.ExecuteAsync(request, cancel);
 
         if (response is null)
         {

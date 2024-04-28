@@ -6,7 +6,7 @@ namespace Decidas.Areas.Groups.Pages;
 
 public class GetGroupModel(GetGroupQuery _query) : PageModel
 {
-    public GetGroupResponse GroupDetails { get; set; }
+    public GroupDetails GroupDetails { get; set; }
 
     public async Task<IActionResult> OnGetAsync(Guid? id, CancellationToken cancel)
     {
@@ -17,14 +17,14 @@ public class GetGroupModel(GetGroupQuery _query) : PageModel
 
         var request = new GetGroupRequest((Guid)id);
 
-        var response = await _query.ProcessAsync(request, cancel);
+        var response = await _query.ExecuteAsync(request, cancel);
 
         if (response == null)
         {
             return NotFound();
         }
 
-        GroupDetails = (GetGroupResponse)response;
+        GroupDetails = (GroupDetails)response;
 
         return Page();
     }

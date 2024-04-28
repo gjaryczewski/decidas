@@ -19,7 +19,7 @@ public class CreateGroupModel(CreateGroupCommand _command) : PageModel
     public async Task<IActionResult> OnPostAsync(CancellationToken cancel)
     {
         var request = new CreateGroupRequest(Name, StartDate);
-        var response = await _command.ProcessAsync(request, cancel);
+        var response = await _command.ExecuteAsync(request, cancel);
 
         return RedirectToPage("Details", new { response.Id } );
     }
