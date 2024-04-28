@@ -1,0 +1,5 @@
+@host = localhost:5001
+
+### Get group list
+GET https://{{host}}/api/groups HTTP/1.1
+accept: text/plain
