@@ -13,7 +13,7 @@ public class GetGroupDetailsQuery(ILogger<GetGroupDetailsQuery> _logger, Applica
 {
     public async Task<GroupDetails?> ExecuteAsync(GetGroupDetailsRequest request, CancellationToken cancel)
     {
-        _logger.LogInformation("Executing GetGroupDetails query for {groupId}", request.Id);
+        _logger.LogInformation("Executing GetGroupDetails query for group ID {groupId}", request.Id);
 
         var groupId = new GroupId(request.Id);
 
@@ -35,7 +35,7 @@ public class GetGroupDetailsEndpoint(ILogger<GetGroupDetailsEndpoint> _logger, G
     [HttpGet("{id:guid}")]
     public async Task<ActionResult<GroupDetails>> HandleAsync(Guid id, CancellationToken cancel)
     {
-        _logger.LogInformation("Handling GetGroupDetails request for {id}", id);
+        _logger.LogInformation("Handling GetGroupDetails request for group ID {id}", id);
 
         var request = new GetGroupDetailsRequest(id);
 

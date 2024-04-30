@@ -4,11 +4,11 @@ namespace Decidas.Areas.Groups.Models;
 
 public class Group : DomainEntity
 {
-    public GroupId Id { get; private set; }
+    public GroupId Id { get; private set; } = default!;
 
-    public required string Name { get; set; }
+    public string Name { get; set; } = default!;
 
-    public GroupStartDate StartDate { get; private set; }
+    public GroupStartDate StartDate { get; private set; } = default!;
 
     public Group() {}
 
@@ -27,9 +27,9 @@ public class Group : DomainEntity
     }
 }
 
-public readonly record struct GroupId(Guid Value);
+public record GroupId(Guid Value);
 
-public readonly record struct GroupStartDate
+public record GroupStartDate
 {
     public DateOnly Value { get; init; }
 

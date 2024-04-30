@@ -38,6 +38,7 @@ public class GetGroupListQuery(ILogger<GetGroupListQuery> _logger, ApplicationDb
         var response = new GroupList(request.Page, request.PerPage);
 
         var groups = await _db.Groups.AsNoTracking()
+            .OrderBy(group => group.Name)
             .Skip((response.Page - 1) * response.PerPage)
             .Take(response.PerPage)
             .ToListAsync(cancel);
