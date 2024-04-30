@@ -8,7 +8,7 @@ public static class DependencyInjection
     {
         services.AddTransient<CreateGroupCommand>();
 
-        services.AddTransient<GetGroupDetailsQuery>();
+        services.AddTransient<GetGroupQuery>();
         services.AddTransient<GetGroupListQuery>();
 
         return services;

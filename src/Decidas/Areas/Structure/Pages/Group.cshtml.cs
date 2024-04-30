@@ -1,12 +1,13 @@
 using Decidas.Areas.Structure.Features;
+using Decidas.Areas.Structure.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Decidas.Areas.Structure.Pages;
 
-public class GetGroupDetailsModel(GetGroupDetailsQuery _query) : PageModel
+public class GetGroupModel(GetGroupQuery _query) : PageModel
 {
-    public GroupDetails GroupDetails { get; set; }
+    public GroupType? Group { get; set; }
 
     public async Task<IActionResult> OnGetAsync(Guid? id, CancellationToken cancel)
     {
@@ -15,7 +16,7 @@ public class GetGroupDetailsModel(GetGroupDetailsQuery _query) : PageModel
             return NotFound();
         }
 
-        var request = new GetGroupDetailsRequest((Guid)id);
+        var request = new GetGroupRequest((Guid)id);
 
         var response = await _query.ExecuteAsync(request, cancel);
 
@@ -24,7 +25,7 @@ public class GetGroupDetailsModel(GetGroupDetailsQuery _query) : PageModel
             return NotFound();
         }
 
-        GroupDetails = (GroupDetails)response;
+        Group = (GroupType)response;
 
         return Page();
     }

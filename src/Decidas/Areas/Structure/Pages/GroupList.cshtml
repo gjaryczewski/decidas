@@ -7,14 +7,14 @@
 <div class="container">
   <h1>Group list</h1>
   <div class="col-auto">
-    <a asp-area="Groups" asp-page="Create" class="btn btn-primary mb-3">Create</a>
+    <a asp-area="Structure" asp-page="CreateGroup" class="btn btn-primary mb-3">Create</a>
   </div>
 
   <ul class="list-group">
 @foreach (var item in @Model.Items)
 {
     <li class="list-group-item">
-      <a asp-area="Groups" asp-page="Details" asp-route-id="@item.Id">@item.Name</a>
+      <a asp-area="Structure" asp-page="Group" asp-route-id="@item.Id">@item.Name</a>
     </li>
 }
   </ul>

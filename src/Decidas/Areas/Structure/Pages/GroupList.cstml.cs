@@ -1,4 +1,5 @@
 using Decidas.Areas.Structure.Features;
+using Decidas.Areas.Structure.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -6,7 +7,7 @@ namespace Decidas.Areas.Structure.Pages;
 
 public class GetGroupListModel(GetGroupListQuery _query) : PageModel
 {
-    public List<GroupListItem> Items { get; set; } = [];
+    public List<GroupType> Items { get; set; } = [];
 
     public int Count { get; set; }
 

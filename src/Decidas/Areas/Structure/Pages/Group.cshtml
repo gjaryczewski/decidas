@@ -1,0 +1,12 @@
+@page
+@model GetGroupModel
+@{
+    ViewData["Title"] = "Group details";
+}
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">@Model.Group?.Name</h1>
+    <p class="lead">Start date: @Model.Group?.StartDate</p>
+  </div>
+</div>
