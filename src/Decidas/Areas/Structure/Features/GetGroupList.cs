@@ -1,17 +1,16 @@
+using Decidas.Areas.Structure.Models;
 using Decidas.Core;
 using Decidas.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Decidas.Areas.Groups.Features;
+namespace Decidas.Areas.Structure.Features;
 
 public record struct GetGroupListRequest(int Page, int PerPage);
 
-public record struct GroupListItem(Guid Id, string Name, DateTime StartDate);
-
 public class GroupList(int page, int perPage)
 {
-    public List<GroupListItem> Items { get; } = [];
+    public List<GroupType> Items { get; } = [];
 
     public int Count => Items.Count;
 
@@ -44,14 +43,14 @@ public class GetGroupListQuery(ILogger<GetGroupListQuery> _logger, ApplicationDb
             .ToListAsync(cancel);
 
         groups.ForEach(g => response.Items.Add(
-            new GroupListItem(g.Id.Value, g.Name, g.StartDate.Value.ToDateTime())));
+            new GroupType(g.Id.Value, g.Name, g.StartDate.Value.ToDateTime())));
 
         return response;
     }
 }
 
 [ApiController]
-[Route("api/groups")]
+[Route("api/structure/groups")]
 public class GetGroupListEndpoint(ILogger<GetGroupListEndpoint> _logger, GetGroupListQuery _query) : ControllerBase
 {
     [HttpGet("{page:int=1}/{perPage:int=30}")]

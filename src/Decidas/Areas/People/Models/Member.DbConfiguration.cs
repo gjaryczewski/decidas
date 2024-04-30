@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Decidas.Areas.Members.Models;
+namespace Decidas.Areas.People.Models;
 
 public class MemberDbConfiguration : IEntityTypeConfiguration<Member>
 {

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Decidas.Areas.Groups.Models;
+namespace Decidas.Areas.Structure.Models;
 
 public class GroupDbConfiguration : IEntityTypeConfiguration<Group>
 {

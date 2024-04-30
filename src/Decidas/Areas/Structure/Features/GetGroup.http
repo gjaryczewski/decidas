@@ -1,0 +1,9 @@
+@host = localhost:5001
+
+### Get group successfully
+GET https://{{host}}/api/structure/groups/6ab0c85f-40b2-40c1-a6a9-fa4868b1133f HTTP/1.1
+accept: text/plain
+
+### Not forund
+GET https://localhost:5001/api/structure/groups/00000000-0000-0000-0000-000000000000 HTTP/1.1
+accept: text/plain

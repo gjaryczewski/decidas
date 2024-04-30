@@ -1,5 +1,5 @@
 
-using Decidas.Areas.Groups.Models;
+using Decidas.Areas.Structure.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Decidas.Core;

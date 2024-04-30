@@ -1,5 +1,6 @@
-using Decidas.Areas.Groups;
-using Decidas.Areas.Members;
+using Decidas.Areas.Content;
+using Decidas.Areas.Structure;
+using Decidas.Areas.People;
 using Decidas.Core;
 
 namespace Decidas;
@@ -18,8 +19,9 @@ public class Program
         builder.Services.AddProblemDetails();
 
         builder.Services.AddCoreServices(configuration);
-        builder.Services.AddAreaGroupsServices();
-        builder.Services.AddAreaMembersServices();
+        builder.Services.AddAreaContentServices();
+        builder.Services.AddAreaStructureServices();
+        builder.Services.AddAreaPeopleServices();
 
         builder.Services.Configure<RouteOptions>(options =>
         {

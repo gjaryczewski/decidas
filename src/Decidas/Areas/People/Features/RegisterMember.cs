@@ -1,8 +1,8 @@
 using Decidas.Core;
-using Decidas.Areas.Members.Models;
+using Decidas.Areas.People.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Decidas.Areas.Members.Features;
+namespace Decidas.Areas.People.Features;
 
 public record struct RegisterMemberRequest(string Name, string Login, string Email, string Password);
 
@@ -10,7 +10,7 @@ public class RegisterMemberCommand(ILogger<RegisterMemberCommand> _logger, Appli
 {
     public async Task<MemberId> ExecuteAsync(RegisterMemberRequest request, CancellationToken cancel)
     {
-        _logger.LogInformation("Executing RegisterMember command for login `{login}", request.Login);
+        _logger.LogInformation("Executing RegisterMember command for login {login}", request.Login);
 
         var member = Member.Create(request.Name, request.Login, request.Email, request.Password);
 
@@ -22,13 +22,13 @@ public class RegisterMemberCommand(ILogger<RegisterMemberCommand> _logger, Appli
 }
 
 [ApiController]
-[Route("api/members")]
+[Route("api/people/members")]
 public class RegisterMemberEndpoint(ILogger<RegisterMemberEndpoint> _logger, RegisterMemberCommand _command) : ControllerBase
 {
     [HttpPost]
     public async Task<ActionResult<Guid>> HandleAsync([FromBody]RegisterMemberRequest request, CancellationToken cancel)
     {
-        _logger.LogInformation("Handling RegisterMember request for login `{login}", request.Login);
+        _logger.LogInformation("Handling RegisterMember request for login {login}", request.Login);
 
         var response = await _command.ExecuteAsync(request, cancel);
 

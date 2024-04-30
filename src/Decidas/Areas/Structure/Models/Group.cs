@@ -1,6 +1,7 @@
 using Decidas.Core;
+using Decidas.Shared;
 
-namespace Decidas.Areas.Groups.Models;
+namespace Decidas.Areas.Structure.Models;
 
 public class Group : DomainEntity
 {
@@ -44,6 +45,15 @@ public record GroupStartDate
 
         Value = value;
     }
+}
+
+public record GroupType(Guid Id, string Name, DateTime StartDate)
+{
+    public static GroupType FromGroup(Group group) => new(
+        group.Id.Value,
+        group.Name,
+        group.StartDate.Value.ToDateTime()
+    );
 }
 
 public class TooOldStartDateError : DomainError

@@ -1,8 +1,8 @@
-using Decidas.Areas.Groups.Features;
+using Decidas.Areas.Structure.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Decidas.Areas.Groups.Pages;
+namespace Decidas.Areas.Structure.Pages;
 
 public class GetGroupDetailsModel(GetGroupDetailsQuery _query) : PageModel
 {

@@ -1,10 +1,10 @@
-using Decidas.Areas.Groups.Features;
+using Decidas.Areas.Structure.Features;
 
-namespace Decidas.Areas.Groups;
+namespace Decidas.Areas.Structure;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddAreaGroupsServices(this IServiceCollection services)
+    public static IServiceCollection AddAreaStructureServices(this IServiceCollection services)
     {
         services.AddTransient<CreateGroupCommand>();
 

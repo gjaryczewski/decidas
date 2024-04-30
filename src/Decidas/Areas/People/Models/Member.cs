@@ -1,7 +1,7 @@
 using Decidas.Core;
 using Decidas.Shared;
 
-namespace Decidas.Areas.Members.Models;
+namespace Decidas.Areas.People.Models;
 
 public class Member : DomainEntity
 {

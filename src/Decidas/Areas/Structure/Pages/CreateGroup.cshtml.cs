@@ -1,8 +1,8 @@
-using Decidas.Areas.Groups.Features;
+using Decidas.Areas.Structure.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Decidas.Areas.Groups.Pages;
+namespace Decidas.Areas.Structure.Pages;
 
 public class CreateGroupModel(CreateGroupCommand _command) : PageModel
 {
@@ -21,6 +21,6 @@ public class CreateGroupModel(CreateGroupCommand _command) : PageModel
         var request = new CreateGroupRequest(Name, StartDate);
         var response = await _command.ExecuteAsync(request, cancel);
 
-        return RedirectToPage("Details", new { response.Id } );
+        return RedirectToPage("Details", new { id = response.Value } );
     }
 }

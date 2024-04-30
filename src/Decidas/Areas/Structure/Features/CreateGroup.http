@@ -1,7 +1,7 @@
 @host = localhost:5001
 
 ### Create group successfully
-POST https://{{host}}/api/groups HTTP/1.1
+POST https://{{host}}/api/structure/groups HTTP/1.1
 accept: text/plain
 content-type: application/json
 
@@ -11,7 +11,7 @@ content-type: application/json
 }
 
 ### Error during validation of start date
-POST https://{{host}}/api/groups HTTP/1.1
+POST https://{{host}}/api/structure/groups HTTP/1.1
 accept: text/plain
 content-type: application/json
 
