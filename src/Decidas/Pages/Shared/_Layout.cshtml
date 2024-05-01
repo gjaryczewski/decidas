@@ -19,20 +19,31 @@
             <li class="nav-item">
               <a class="nav-link" asp-area="" asp-page="Index">Home</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" asp-area="People" asp-page="MemberList">Members</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="navbarDropdownPeople" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">
+                People
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownPeople">
+                <li><a class="dropdown-item" asp-area="People" asp-page="MemberList">Members</a></li>
+                <li><a class="dropdown-item" asp-area="People" asp-page="KeeperList">Keepers</a></li>
+              </ul>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" asp-area="People" asp-page="KeeperList">Keepers</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="navbarDropdownStructure" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">
+                Structure
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownStructure">
+                <li><a class="dropdown-item" asp-area="Structure" asp-page="GroupList">Groups</a></li>
+                <li><a class="dropdown-item" asp-area="Structure" asp-page="MeetingList">Meetings</a></li>
+              </ul>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" asp-area="Structure" asp-page="GroupList">Groups</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" asp-area="Structure" asp-page="MeetingList">Meetings</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" asp-area="Content" asp-page="TopicList">Topics</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="navbarDropdownContent" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">
+                Content
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownContent">
+                <li><a class="dropdown-item" asp-area="Content" asp-page="TopicList">Topics</a></li>
+              </ul>
             </li>
           </ul>
           <form class="d-flex" role="search">
