@@ -32,11 +32,11 @@ public record KeeperId(Guid Value);
 
 public record KeeperType(Guid Id, Guid MemberId, string Name, string Email, DateTime DesignateDate)
 {
-    public static KeeperType FromKeeper(Keeper keeper, Member member) => new(
+    public static KeeperType FromKeeper(Keeper keeper) => new(
         keeper.Id.Value,
         keeper.MemberId.Value,
-        member.Name,
-        member.Email.Value,
+        keeper.Member.Name,
+        keeper.Member.Email.Value,
         keeper.DesignateDate.ToDateTime()
     );
 }

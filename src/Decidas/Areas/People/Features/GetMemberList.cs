@@ -29,14 +29,14 @@ public class MemberList(int page, int perPage)
 
 public class GetMemberListQuery(ILogger<GetMemberListQuery> _logger, ApplicationDb _db)
 {
-    public async Task<MemberList?> ExecuteAsync(GetMemberListRequest request, CancellationToken cancel)
+    public async Task<MemberList> ExecuteAsync(GetMemberListRequest request, CancellationToken cancel)
     {
         _logger.LogInformation("Executing GetMemberList query for page {page}", request.Page);
 
         var response = new MemberList(request.Page, request.PerPage);
 
         var members = await _db.Members.AsNoTracking()
-            .OrderBy(group => group.Name)
+            .OrderBy(member => member.Name)
             .Skip((response.Page - 1) * response.PerPage)
             .Take(response.PerPage)
             .ToListAsync(cancel);

@@ -1,0 +1,27 @@
+@page "/people/keeper-list"
+@model KeeperListModel
+@{
+    ViewData["Title"] = "Keeper list";
+}
+
+<div class="container">
+  <h1>@ViewData["Title"]</h1>
+
+@if (@Model.Items.Count == 0)
+{
+  <div class="alert alert-primary" role="alert">
+    There is no keeper on the list. Maybe <a class="alert-link" asp-area="People" asp-page="MemberList">designate</a> someone?
+  </div>
+}
+else
+{
+  <ul class="list-group">
+  @foreach (var item in @Model.Items)
+  {
+    <li class="list-group-item">
+      <a asp-area="People" asp-page="KeeperDetails" asp-route-id="@item.Id">@item.Name</a>
+    </li>
+  }
+  </ul>
+}
+</div>

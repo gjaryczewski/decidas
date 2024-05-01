@@ -30,7 +30,7 @@ public class GroupList(int page, int perPage)
 
 public class GetGroupListQuery(ILogger<GetGroupListQuery> _logger, ApplicationDb _db)
 {
-    public async Task<GroupList?> ExecuteAsync(GetGroupListRequest request, CancellationToken cancel)
+    public async Task<GroupList> ExecuteAsync(GetGroupListRequest request, CancellationToken cancel)
     {
         _logger.LogInformation("Executing GetGroupList query for page {page}", request.Page);
 

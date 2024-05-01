@@ -1,4 +1,3 @@
-using Decidas.Areas.Content;
 using Decidas.Areas.Structure;
 using Decidas.Areas.People;
 using Decidas.Core;
@@ -19,7 +18,6 @@ public class Program
         builder.Services.AddProblemDetails();
 
         builder.Services.AddCoreServices(configuration);
-        builder.Services.AddAreaContentServices();
         builder.Services.AddAreaStructureServices();
         builder.Services.AddAreaPeopleServices();
 
