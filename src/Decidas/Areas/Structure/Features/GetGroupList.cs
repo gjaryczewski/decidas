@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Decidas.Areas.Structure.Features;
 
-public record struct GetGroupListRequest(int Page, int PerPage);
+public record GetGroupListRequest(int Page, int PerPage);
 
 public class GroupList(int page, int perPage)
 {

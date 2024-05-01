@@ -5,7 +5,7 @@ using Decidas.Areas.Structure.Models;
 
 namespace Decidas.Areas.Structure.Features;
 
-public record struct CreateGroupRequest(string Name, DateTime StartDate);
+public record CreateGroupRequest(string Name, DateTime StartDate);
 
 public class CreateGroupCommand(ILogger<CreateGroupCommand> _logger, ApplicationDb _db)
 {

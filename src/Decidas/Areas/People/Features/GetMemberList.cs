@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Decidas.Areas.People.Features;
 
-public record struct GetMemberListRequest(int Page, int PerPage);
+public record GetMemberListRequest(int Page, int PerPage);
 
 public class MemberList(int page, int perPage)
 {

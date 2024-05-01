@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Decidas.Areas.Structure.Features;
 
-public record struct GetGroupRequest(Guid Id);
+public record GetGroupRequest(Guid Id);
 
 public class GetGroupQuery(ILogger<GetGroupQuery> _logger, ApplicationDb _db)
 {

@@ -8,5 +8,8 @@
   <div class="container">
     <h1 class="display-4">@Model.Member?.Name</h1>
     <p class="lead">Register date: @Model.Member?.RegisterDate</p>
+    <div>
+      <a asp-area="People" asp-page="DesignateKeeper" asp-route-id="@Model.Member?.Id" class="btn btn-primary mb-3">Designate as keeper</a>
+    </div>
   </div>
 </div>

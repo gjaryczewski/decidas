@@ -10,16 +10,12 @@ public class MemberDbConfiguration : IEntityTypeConfiguration<Member>
         builder.HasKey(member => member.Id);
 
         builder.Property(member => member.Id)
+            .ValueGeneratedNever()
             .HasConversion(id => id.Value, value => new MemberId(value));
 
         builder.Property(member => member.Name)
             .HasColumnType("nvarchar(100)")
             .IsRequired();
-
-        builder.Property(member => member.Login)
-            .HasColumnType("nvarchar(50)")
-            .IsRequired()
-            .HasConversion(login => login.Value, value => new Login(value));
 
         builder.Property(member => member.Email)
             .HasColumnType("nvarchar(200)")

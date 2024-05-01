@@ -9,41 +9,30 @@ public class Member : DomainEntity
 
     public string Name { get; private set; } = default!;
 
-    public Login Login { get; private set; } = default!;
-
     public Email Email { get; private set; } = default!;
 
     public PasswordHash PasswordHash { get; private set; } = default!;
 
     public DateOnly RegisterDate { get; private set; } = default!;
 
+    public Keeper? Keeper { get; private set; }
+
     public Member() {}
 
-    public static Member Create(string name, string login, string email, string password)
+    public static Member Register(string name, string email, string password)
     {
-        var group = new Member
+        var member = new Member
         {
             Id = new(Guid.NewGuid()),
             Name = name,
-            Login = new(login),
             Email = new(email),
             PasswordHash = new(password),
             RegisterDate = DateOnly.FromDateTime(DateTime.Today)
         };
 
-        group.AddDomainEvent(new MemberCreatedEvent(group.Id.Value));
+        member.AddDomainEvent(new MemberRegisteredEvent(member.Id.Value));
 
-        return group;
-    }
-}
-
-public record Login
-{
-    public string Value { get; }
-
-    public Login(string login)
-    {
-        Value = login;
+        return member;
     }
 }
 
@@ -69,15 +58,14 @@ public record PasswordHash
 
 public record MemberId(Guid Value);
 
-public record MemberType(Guid Id, string Name, string Login, string Email, DateTime RegisterDate)
+public record MemberType(Guid Id, string Name, string Email, DateTime RegisterDate)
 {
     public static MemberType FromMember(Member member) => new(
         member.Id.Value,
         member.Name,
-        member.Login.Value,
         member.Email.Value,
         member.RegisterDate.ToDateTime()
     );
 }
 
-public class MemberCreatedEvent(Guid id) : DomainEvent(id) {}
+public class MemberRegisteredEvent(Guid id) : DomainEvent(id) {}

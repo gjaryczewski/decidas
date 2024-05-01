@@ -8,6 +8,7 @@ public static class ServicesRegistration
     {
         // Commands
         services.AddTransient<RegisterMemberCommand>();
+        services.AddTransient<DesignateKeeperCommand>();
 
         // Queries
         services.AddTransient<GetMemberQuery>();

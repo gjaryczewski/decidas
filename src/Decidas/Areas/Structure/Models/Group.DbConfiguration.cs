@@ -10,6 +10,7 @@ public class GroupDbConfiguration : IEntityTypeConfiguration<Group>
         builder.HasKey(group => group.Id);
 
         builder.Property(group => group.Id)
+            .ValueGeneratedNever()
             .HasConversion(id => id.Value, value => new GroupId(value));
 
         builder.Property(group => group.Name)

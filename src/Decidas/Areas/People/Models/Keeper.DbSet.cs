@@ -5,5 +5,5 @@ namespace Decidas.Core;
 
 public partial class ApplicationDb
 {
-    public DbSet<Member> Members { get; set; }
+    public DbSet<Keeper> Keepers { get; set; }
 }

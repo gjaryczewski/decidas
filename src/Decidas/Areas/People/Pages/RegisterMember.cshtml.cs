@@ -8,9 +8,6 @@ public class RegisterMemberModel(RegisterMemberCommand _command) : PageModel
 {
     [BindProperty]
     public string Name { get; set; } = string.Empty;
-
-    [BindProperty]
-    public string Login { get; set; } = string.Empty;
     
     [BindProperty]
     public string Email { get; set; } = string.Empty;
@@ -24,7 +21,7 @@ public class RegisterMemberModel(RegisterMemberCommand _command) : PageModel
 
     public async Task<IActionResult> OnPostAsync(CancellationToken cancel)
     {
-        var request = new RegisterMemberRequest(Name, Login, Email, Password);
+        var request = new RegisterMemberRequest(Name, Email, Password);
 
         var response = await _command.ExecuteAsync(request, cancel);
 

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Decidas.Areas.People.Features;
 
-public record struct GetMemberRequest(Guid Id);
+public record GetMemberRequest(Guid Id);
 
 public class GetMemberQuery(ILogger<GetMemberQuery> _logger, ApplicationDb _db)
 {
