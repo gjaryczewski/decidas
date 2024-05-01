@@ -34,6 +34,15 @@ public class Member : DomainEntity
 
         return member;
     }
+
+    public Keeper Designate(DateOnly designateDate)
+    {
+        var keeper = Keeper.Create(Id, designateDate);
+
+        keeper.AddDomainEvent(new KeeperDesignatedEvent(keeper.Id.Value));
+
+        return keeper;
+    }
 }
 
 public record Email
@@ -69,3 +78,5 @@ public record MemberType(Guid Id, string Name, string Email, DateTime RegisterDa
 }
 
 public class MemberRegisteredEvent(Guid id) : DomainEvent(id) {}
+
+public class KeeperDesignatedEvent(Guid id) : DomainEvent(id) {}

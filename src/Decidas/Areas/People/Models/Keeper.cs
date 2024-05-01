@@ -15,16 +15,14 @@ public class Keeper : DomainEntity
 
     public Keeper() {}
 
-    public static Keeper Designate(Guid memberId, DateOnly designateDate)
+    public static Keeper Create(MemberId memberId, DateOnly designateDate)
     {
         var keeper = new Keeper
         {
             Id = new(Guid.NewGuid()),
-            MemberId = new(memberId),
+            MemberId = memberId,
             DesignateDate = designateDate
         };
-
-        keeper.AddDomainEvent(new KeeperDesignatedEvent(keeper.Id.Value));
 
         return keeper;
     }
@@ -42,5 +40,3 @@ public record KeeperType(Guid Id, Guid MemberId, string Name, string Email, Date
         keeper.DesignateDate.ToDateTime()
     );
 }
-
-public class KeeperDesignatedEvent(Guid id) : DomainEvent(id) {}
