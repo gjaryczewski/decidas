@@ -1,13 +1,13 @@
-using Decidas.Areas.Structure.Features;
-using Decidas.Areas.Structure.Models;
+using Decidas.Areas.People.Features;
+using Decidas.Areas.People.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Decidas.Areas.Structure.Pages;
+namespace Decidas.Areas.People.Pages;
 
-public class GroupListModel(GetGroupListQuery _query) : PageModel
+public class MemberListModel(GetMemberListQuery _query) : PageModel
 {
-    public List<GroupType> Items { get; set; } = [];
+    public List<MemberType> Items { get; set; } = [];
 
     public int Count { get; set; }
 
@@ -17,7 +17,7 @@ public class GroupListModel(GetGroupListQuery _query) : PageModel
 
     public async Task<IActionResult> OnGetAsync(int page = 1, int perPage = 30, CancellationToken cancel = default)
     {
-        var request = new GetGroupListRequest(page, perPage);
+        var request = new GetMemberListRequest(page, perPage);
 
         var response = await _query.ExecuteAsync(request, cancel);
 

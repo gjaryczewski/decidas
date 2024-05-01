@@ -1,11 +1,11 @@
 @page
-@model GetGroupListModel
+@model GroupListModel
 @{
     ViewData["Title"] = "Group list";
 }
 
 <div class="container">
-  <h1>Group list</h1>
+  <h1>@ViewData["Title"]</h1>
   <div class="col-auto">
     <a asp-area="Structure" asp-page="CreateGroup" class="btn btn-primary mb-3">Create</a>
   </div>

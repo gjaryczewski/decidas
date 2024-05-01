@@ -21,6 +21,6 @@ public class CreateGroupModel(CreateGroupCommand _command) : PageModel
         var request = new CreateGroupRequest(Name, StartDate);
         var response = await _command.ExecuteAsync(request, cancel);
 
-        return RedirectToPage("Group", new { id = response.Value } );
+        return RedirectToPage("GroupDetails", new { id = response.Value } );
     }
 }

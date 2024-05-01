@@ -1,0 +1,12 @@
+@page "/people/member-details"
+@model MemberDetailsModel
+@{
+    ViewData["Title"] = "Member details";
+}
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">@Model.Member?.Name</h1>
+    <p class="lead">Register date: @Model.Member?.RegisterDate</p>
+  </div>
+</div>

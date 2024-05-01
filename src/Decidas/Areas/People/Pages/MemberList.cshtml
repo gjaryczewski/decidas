@@ -1,0 +1,30 @@
+@page "/people/member-list"
+@model MemberListModel
+@{
+    ViewData["Title"] = "Member list";
+}
+
+<div class="container">
+  <h1>@ViewData["Title"]</h1>
+  <div class="col-auto">
+    <a asp-area="People" asp-page="RegisterMember" class="btn btn-primary mb-3">Register</a>
+  </div>
+
+@if (@Model.Items.Count == 0)
+{
+  <div class="alert alert-primary" role="alert">
+    There is no member on the list. Maybe <a class="alert-link" asp-area="People" asp-page="RegisterMember">register</a> someone?
+  </div>
+}
+else
+{
+  <ul class="list-group">
+  @foreach (var item in @Model.Items)
+  {
+    <li class="list-group-item">
+      <a asp-area="People" asp-page="MemberDetails" asp-route-id="@item.Id">@item.Name</a>
+    </li>
+  }
+  </ul>
+}
+</div>

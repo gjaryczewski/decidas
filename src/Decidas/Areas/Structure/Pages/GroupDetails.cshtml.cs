@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Decidas.Areas.Structure.Pages;
 
-public class GetGroupModel(GetGroupQuery _query) : PageModel
+public class GroupDetailsModel(GetGroupQuery _query) : PageModel
 {
     public GroupType? Group { get; set; }
 
@@ -25,7 +25,7 @@ public class GetGroupModel(GetGroupQuery _query) : PageModel
             return NotFound();
         }
 
-        Group = (GroupType)response;
+        Group = response;
 
         return Page();
     }
