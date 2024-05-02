@@ -6,7 +6,10 @@
 
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
-    <h1 class="display-4">@Model.Group?.Name</h1>
-    <p class="lead">Start date: @Model.Group?.StartDate</p>
+    <h1 class="display-4">@Model.Group.Name</h1>
+    <p class="lead">Start date: @Model.Group.StartDate</p>
+    <div>
+      <a asp-area="Structure" asp-page="AssignKeeper" asp-route-id="@Model.Group.Id" class="btn btn-primary mb-3">Assign keeper</a>
+    </div>
   </div>
 </div>

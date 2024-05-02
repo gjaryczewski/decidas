@@ -7,7 +7,7 @@ namespace Decidas.Areas.Structure.Pages;
 
 public class GroupDetailsModel(GetGroupQuery _query) : PageModel
 {
-    public GroupType? Group { get; set; }
+    public GroupType Group { get; set; } = default!;
 
     public async Task<IActionResult> OnGetAsync(Guid? id, CancellationToken cancel)
     {

@@ -14,7 +14,7 @@
 @foreach (var item in @Model.Items)
 {
     <li class="list-group-item">
-      <a asp-area="Structure" asp-page="Group" asp-route-id="@item.Id">@item.Name</a>
+      <a asp-area="Structure" asp-page="GroupDetails" asp-route-id="@item.Id">@item.Name</a>
     </li>
 }
   </ul>

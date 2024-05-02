@@ -1,0 +1,32 @@
+@page "/structure/assign-keeper/{id?}"
+@model AssignKeeperModel
+@{
+    ViewData["Title"] = "Assign keeper";
+}
+
+<div class="container">
+  <h1>@ViewData["Title"]</h1>
+  <form method="post">
+    <input type="hidden" name="GroupId" value="@Model.GroupId">
+    <div class="form-group col-md-4">
+      <label for="Name">Group name</label>
+      <input type="text" class="form-control" name="Name" value="@Model.GroupName" disabled>
+    </div>
+    <div class="form-group col-md-4">
+      <label for="Name">Group name</label>
+        <select class="form-select" name="Name">
+        <option selected>Open this select menu</option>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+        </select>
+    </div>
+    <div class="form-group col-md-4">
+      <label for="AssignDate">Assign date</label>
+      <input type="date" class="form-control" name="AssignDate" value="@Model.AssignDate">
+    </div>
+    <div class="col-md-4">
+      <button type="submit" class="btn btn-primary">Assign</button>
+    </div>
+  </form>
+</div>
