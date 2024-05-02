@@ -1,3 +1,4 @@
+using Decidas.Areas.People.Models;
 using Decidas.Core;
 using Decidas.Shared;
 
@@ -11,6 +12,8 @@ public class Group : DomainEntity
 
     public GroupStartDate StartDate { get; private set; } = default!;
 
+    public List<Assignment> Assignments { get; private set; } = default!;
+
     public Group() {}
 
     public static Group Create(string name, DateOnly startDate)
@@ -22,9 +25,16 @@ public class Group : DomainEntity
             StartDate = new(startDate)
         };
 
-        group.AddDomainEvent(new GroupCreatedEvent(group.Id.Value));
+        group.AddDomainEvent(new GroupCreated(group.Id.Value));
 
         return group;
+    }
+
+    public void AssignKeeper(KeeperId keeperId, DateOnly assignDate)
+    {
+        Assignments.Add(new Assignment(Id, keeperId, assignDate));
+
+        AddDomainEvent(new KeeperAssignedToGroup(Id.Value, keeperId.Value));
     }
 }
 
@@ -40,7 +50,7 @@ public record GroupStartDate
     {
         if (value < Oldest)
         {
-            throw new TooOldStartDateError(value);
+            throw new TooOldStartDate(value);
         }
 
         Value = value;
@@ -56,12 +66,19 @@ public record GroupType(Guid Id, string Name, DateTime StartDate)
     );
 }
 
-public class TooOldStartDateError : DomainError
+public class TooOldStartDate : DomainError
 {
-    public TooOldStartDateError(DateOnly startDate)
+    public TooOldStartDate(DateOnly startDate)
     {
         Details = $"Start date {startDate} is earlier than oldest possible {GroupStartDate.Oldest}.";
     }
 }
 
-public class GroupCreatedEvent(Guid id) : DomainEvent(id) {}
+public class GroupCreated(Guid id) : DomainEvent(id) {}
+
+public class KeeperAssignedToGroup(Guid groupId, Guid keeperId) : DomainEvent(null)
+{
+    public Guid GroupId { get; }= groupId;
+
+    public Guid Keeper { get; }= keeperId;
+}

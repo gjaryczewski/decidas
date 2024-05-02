@@ -5,5 +5,5 @@ namespace Decidas.Core;
 
 public partial class ApplicationDb
 {
-    public DbSet<Group> Groups { get; set; } = default!;
+    public DbSet<Assignment> Assignments { get; set; } = default!;
 }

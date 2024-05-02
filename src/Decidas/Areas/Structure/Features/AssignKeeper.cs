@@ -1,24 +1,25 @@
 using Decidas.Core;
-using Group = Decidas.Areas.Structure.Models.Group;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using Decidas.Areas.Structure.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Decidas.Areas.Structure.Features;
 
-public record AssignKeeperRequest(Guid GroupId, Guid KeeperId, DateTime StartDate);
+public record AssignKeeperRequest(Guid GroupId, Guid KeeperId, DateTime AssignDate);
 
 public class AssignKeeperCommand(ILogger<AssignKeeperCommand> _logger, ApplicationDb _db)
 {
-    public async Task<GroupId> ExecuteAsync(AssignKeeperRequest request, CancellationToken cancel)
+    public async Task ExecuteAsync(AssignKeeperRequest request, CancellationToken cancel)
     {
-        _logger.LogInformation("Executing AssignKeeper command for group '{groupName}'", request.Name);
+        _logger.LogInformation("Assigning keeper {keeperId} to group {groupId}", request.KeeperId, request.GroupId);
 
-        var group = Group.Create(request.Name, DateOnly.FromDateTime(request.StartDate));
+        var group = await _db.Groups.Include(g => g.Assignments)
+            .FirstOrDefaultAsync(g => g.Id.Value == request.GroupId)
+            ?? throw new UnknownGroupWhenAssigningKeeper(request.GroupId);
 
-        await _db.Groups.AddAsync(group, cancel);
+        group.AssignKeeper(new(request.KeeperId), DateOnly.FromDateTime(request.AssignDate));
+
         await _db.SaveChangesAsync(cancel);
-
-        return group.Id;
     }
 }
 
@@ -29,10 +30,18 @@ public class AssignKeeperEndpoint(ILogger<AssignKeeperEndpoint> _logger, AssignK
     [HttpPost]
     public async Task<ActionResult<Guid>> HandleAsync([FromBody]AssignKeeperRequest request, CancellationToken cancel)
     {
-        _logger.LogInformation("Handling AssignKeeper request for group '{groupName}'", request.Name);
+        _logger.LogInformation("Handling AssignKeeper request for group {groupId}", request.GroupId);
 
-        var response = await _command.ExecuteAsync(request, cancel);
+        await _command.ExecuteAsync(request, cancel);
 
-        return CreatedAtAction(nameof(HandleAsync), new { GroupId = response.Value });
+        return Created();
+    }
+}
+
+public class UnknownGroupWhenAssigningKeeper : DomainError
+{
+    public UnknownGroupWhenAssigningKeeper(Guid groupId)
+    {
+        Details = $"Unknown group {groupId} when assigning keeper.";
     }
 }
