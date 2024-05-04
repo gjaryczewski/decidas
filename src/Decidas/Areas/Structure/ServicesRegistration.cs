@@ -1,3 +1,4 @@
+using Decidas.Areas.People.Contracts;
 using Decidas.Areas.Structure.Features;
 
 namespace Decidas.Areas.Structure;
@@ -14,6 +15,9 @@ public static class ServicesRegistration
         services.AddTransient<GetGroupListQuery>();
 
         // Events
+
+        // Clients
+        services.AddTransient<PeopleClient>();
 
         return services;
     }

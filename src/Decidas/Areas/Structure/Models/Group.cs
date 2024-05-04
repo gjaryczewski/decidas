@@ -1,4 +1,3 @@
-using Decidas.Areas.People.Models;
 using Decidas.Core;
 using Decidas.Shared;
 
@@ -38,6 +37,8 @@ public class Group : DomainEntity
     }
 }
 
+#region Types
+
 public record GroupId(Guid Value);
 
 public record GroupStartDate
@@ -66,6 +67,10 @@ public record GroupType(Guid Id, string Name, DateTime StartDate)
     );
 }
 
+#endregion
+
+#region Errors
+
 public class TooOldStartDate : DomainError
 {
     public TooOldStartDate(DateOnly startDate)
@@ -73,6 +78,10 @@ public class TooOldStartDate : DomainError
         Details = $"Start date {startDate} is earlier than oldest possible {GroupStartDate.Oldest}.";
     }
 }
+
+#endregion
+
+#region Events
 
 public class GroupCreated(Guid id) : DomainEvent(id) {}
 
@@ -82,3 +91,5 @@ public class KeeperAssignedToGroup(Guid groupId, Guid keeperId) : DomainEvent(nu
 
     public Guid Keeper { get; }= keeperId;
 }
+
+#endregion

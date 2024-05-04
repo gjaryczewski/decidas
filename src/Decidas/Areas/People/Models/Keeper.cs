@@ -1,5 +1,3 @@
-using Decidas.Areas.People.Contracts;
-using Decidas.Areas.Structure.Contracts;
 using Decidas.Core;
 using Decidas.Shared;
 
@@ -14,8 +12,6 @@ public class Keeper : DomainEntity
     public Member Member { get; private set; } = default!;
 
     public DateOnly DesignateDate { get; private set; } = default!;
-
-    public List<Assignment> Assignments { get; private set; } = default!;
 
     public Keeper() {}
 
@@ -33,14 +29,3 @@ public class Keeper : DomainEntity
 }
 
 public record KeeperId(Guid Value);
-
-public record KeeperType(Guid Id, Guid MemberId, string Name, string Email, DateTime DesignateDate)
-{
-    public static KeeperType FromKeeper(Keeper keeper) => new(
-        keeper.Id.Value,
-        keeper.MemberId.Value,
-        keeper.Member.Name,
-        keeper.Member.Email.Value,
-        keeper.DesignateDate.ToDateTime()
-    );
-}

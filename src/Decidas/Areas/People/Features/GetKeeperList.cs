@@ -1,4 +1,5 @@
-using Decidas.Areas.People.Models;
+using Decidas.Areas.People.Contracts;
+using Decidas.Areas.People.Mappers;
 using Decidas.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -42,7 +43,7 @@ public class GetKeeperListQuery(ILogger<GetKeeperListQuery> _logger, Application
             .Take(response.PerPage)
             .ToListAsync(cancel);
 
-        keepers.ForEach(keeper => response.Items.Add(KeeperType.FromKeeper(keeper)));
+        keepers.ForEach(keeper => response.Items.Add(keeper.ToKeeperType()));
 
         return response;
     }

@@ -1,3 +1,5 @@
+using Decidas.Areas.People.Contracts;
+using Decidas.Areas.People.Mappers;
 using Decidas.Areas.People.Models;
 using Decidas.Core;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +21,7 @@ public class GetKeeperQuery(ILogger<GetKeeperQuery> _logger, ApplicationDb _db)
             .Include(keeper => keeper.Member)
             .FirstOrDefaultAsync(keeper => keeper.Id == keeperId, cancel);
 
-        return keeper is not null ? KeeperType.FromKeeper(keeper) : null;
+        return keeper?.ToKeeperType();
     }
 }
 

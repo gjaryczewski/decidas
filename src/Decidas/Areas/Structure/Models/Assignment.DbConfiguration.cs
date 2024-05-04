@@ -1,4 +1,4 @@
-using Decidas.Areas.People.Models;
+using Decidas.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -8,6 +8,8 @@ public class AssignmentDbConfiguration : IEntityTypeConfiguration<Assignment>
 {
     public void Configure(EntityTypeBuilder<Assignment> builder)
     {
+        builder.ToTable("Assignments", schema: "Structure");
+
         builder.HasKey(a => new { a.GroupId, a.KeeperId });
 
         builder.Property(a => a.GroupId)
