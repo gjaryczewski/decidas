@@ -11,7 +11,7 @@ public class Group : DomainEventPublisher
 
     public GroupStartDate StartDate { get; private set; } = default!;
 
-    public List<Assignment> Assignments { get; private set; } = default!;
+    public List<Assignment> Assignments { get; private set; } = [];
 
     public Group() {}
 
@@ -31,7 +31,8 @@ public class Group : DomainEventPublisher
 
     public void AssignKeeper(KeeperId keeperId, DateOnly assignDate)
     {
-        Assignments.Add(Assignment.Create(Id, keeperId, assignDate));
+        var assignment = Assignment.Create(Id, keeperId, assignDate);
+        Assignments.Add(assignment);
 
         PublishDomainEvent(new KeeperAssignedToGroup(Id.Value, keeperId.Value));
     }

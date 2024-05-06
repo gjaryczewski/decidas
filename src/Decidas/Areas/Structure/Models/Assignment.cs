@@ -10,6 +10,8 @@ public class Assignment
 
     public DateOnly AssignDate { get; private set; } = default!;
 
+    public Assignment() {}
+
     public static Assignment Create(GroupId groupId, KeeperId keeperId, DateOnly assignDate) => new()
     {
         Id = new(Guid.NewGuid()),

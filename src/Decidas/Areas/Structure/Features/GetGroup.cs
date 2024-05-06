@@ -14,7 +14,6 @@ public class GetGroupQuery(ILogger<GetGroupQuery> _logger, ApplicationDb _db)
         _logger.LogInformation("Executing GetGroup query for group ID {groupId}", request.Id);
 
         var groupId = new GroupId(request.Id);
-
         var group = await _db.Groups.AsNoTracking()
             .FirstOrDefaultAsync(group => group.Id == groupId, cancel);
 

@@ -1,3 +1,4 @@
+using Decidas.Areas.Structure.Models;
 using Decidas.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,8 +13,8 @@ public class AssignKeeperCommand(ILogger<AssignKeeperCommand> _logger, Applicati
     {
         _logger.LogInformation("Assigning keeper {keeperId} to group {groupId}", request.KeeperId, request.GroupId);
 
-        var group = await _db.Groups.Include(g => g.Assignments)
-            .FirstOrDefaultAsync(g => g.Id.Value == request.GroupId, cancel)
+        var groupId = new GroupId(request.GroupId);
+        var group = await _db.Groups.FirstOrDefaultAsync(g => g.Id == groupId, cancel)
             ?? throw new UnknownGroupForAssigningKeeper(request.GroupId);
 
         group.AssignKeeper(new(request.KeeperId), DateOnly.FromDateTime(request.AssignDate));

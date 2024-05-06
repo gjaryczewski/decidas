@@ -26,7 +26,6 @@ public class GetKeeperDetailsCommand(ILogger<GetKeeperDetailsCommand> _logger, A
         _logger.LogInformation("Getting details of keeper ID {id}", request.Id);
 
         var keeperId = new KeeperId(request.Id);
-
         var keeper = await _db.Keepers.AsNoTracking()
             .Include(keeper => keeper.Member)
             .FirstOrDefaultAsync(keeper => keeper.Id == keeperId, cancel);

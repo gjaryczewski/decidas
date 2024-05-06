@@ -14,7 +14,6 @@ public class GetMemberQuery(ILogger<GetMemberQuery> _logger, ApplicationDb _db)
         _logger.LogInformation("Executing GetMember query for member ID {memberId}", request.Id);
 
         var memberId = new MemberId(request.Id);
-
         var member = await _db.Members.AsNoTracking()
             .FirstOrDefaultAsync(member => member.Id == memberId, cancel);
 

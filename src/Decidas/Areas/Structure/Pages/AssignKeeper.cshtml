@@ -13,8 +13,8 @@
       <input type="text" class="form-control" name="Name" value="@Model.GroupName" disabled>
     </div>
     <div class="form-group col-md-4">
-      <label for="Name">Group name</label>
-        <select class="form-select" name="Name">
+      <label for="KeeperId">Keeper</label>
+        <select class="form-select" name="KeeperId">
 @foreach (var keeper in @Model.Keepers)
 {
         <option value="@keeper.Id">@keeper.Name</option>
