@@ -1,5 +1,4 @@
 using Decidas.Areas.People.Features;
-using Decidas.Areas.People.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -7,7 +6,7 @@ namespace Decidas.Areas.People.Pages;
 
 public class KeeperListModel(GetKeeperListQuery _query) : PageModel
 {
-    public List<KeeperType> Items { get; set; } = [];
+    public List<KeeperDetails> Items { get; set; } = [];
 
     public int Count { get; set; }
 
@@ -17,7 +16,7 @@ public class KeeperListModel(GetKeeperListQuery _query) : PageModel
 
     public async Task<IActionResult> OnGetAsync(int page = 1, int perPage = 30, CancellationToken cancel = default)
     {
-        var request = new GetKeeperListRequest(page, perPage);
+        var request = new KeeperListRequest(page, perPage);
 
         var response = await _query.ExecuteAsync(request, cancel);
 

@@ -1,4 +1,4 @@
-@page "/structure/assign-keeper/{id?}"
+@page "/structure/assign-keeper/{groupid?}"
 @model AssignKeeperModel
 @{
     ViewData["Title"] = "Assign keeper";
@@ -15,10 +15,10 @@
     <div class="form-group col-md-4">
       <label for="Name">Group name</label>
         <select class="form-select" name="Name">
-        <option selected>Open this select menu</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
+@foreach (var keeper in @Model.Keepers)
+{
+        <option value="@keeper.Id">@keeper.Name</option>
+}
         </select>
     </div>
     <div class="form-group col-md-4">

@@ -1,5 +1,4 @@
-using Decidas.Areas.People.Contracts;
-using Decidas.Areas.People.Features;
+using Decidas.Areas.Structure.Clients;
 using Decidas.Areas.Structure.Features;
 using Decidas.Shared;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Decidas.Areas.Structure.Pages;
 
-public class AssignKeeperModel(PeopleClient _peopleClient, AssignKeeperCommand _assignCommand) : PageModel
+public class AssignKeeperModel(PeopleClient _peopleClient, GetGroupQuery _getGroup, AssignKeeperCommand _assignKeeper) : PageModel
 {
     [BindProperty]
     public Guid GroupId { get; set; } = default!;
@@ -24,15 +23,25 @@ public class AssignKeeperModel(PeopleClient _peopleClient, AssignKeeperCommand _
     [BindProperty]
     public List<KeeperName> Keepers { get; set; } = [];
 
-    public async Task<IActionResult> OnGetAsync(Guid? id, CancellationToken cancel)
+    public async Task<IActionResult> OnGetAsync(Guid? groupId, CancellationToken cancel)
     {
-        if (id is null)
+        if (groupId is null)
         {
             return NotFound();
         }
 
-        var response = await _peopleClient.GetKeeperList(cancel);
+        var request = new GetGroupRequest((Guid)groupId);
 
+        var group = await _getGroup.ExecuteAsync(request, cancel);
+        if (groupId is null)
+        {
+            return NotFound();
+        }
+
+        GroupId = group!.Id;
+        GroupName = group!.Name;
+
+        var response = await _peopleClient.GetKeeperList(cancel);
         if (response == null)
         {
             return NotFound();
@@ -47,7 +56,7 @@ public class AssignKeeperModel(PeopleClient _peopleClient, AssignKeeperCommand _
     {
         var request = new AssignKeeperRequest(GroupId, KeeperId, AssignDate.ToDateTime());
 
-        await _assignCommand.ExecuteAsync(request, cancel);
+        await _assignKeeper.ExecuteAsync(request, cancel);
 
         return RedirectToPage("GroupDetails", new { id = GroupId } );
     }

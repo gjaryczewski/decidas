@@ -21,9 +21,5 @@ public class GroupDbConfiguration : IEntityTypeConfiguration<Group>
             .HasColumnType("date")
             .IsRequired()
             .HasConversion(startDate => startDate.Value, value => new GroupStartDate(value));
-
-        builder.HasMany(g => g.Assignments)
-            .WithMany()
-            .UsingEntity("Assignments");
     }
 }

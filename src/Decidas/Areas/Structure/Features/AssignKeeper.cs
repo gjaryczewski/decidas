@@ -13,8 +13,8 @@ public class AssignKeeperCommand(ILogger<AssignKeeperCommand> _logger, Applicati
         _logger.LogInformation("Assigning keeper {keeperId} to group {groupId}", request.KeeperId, request.GroupId);
 
         var group = await _db.Groups.Include(g => g.Assignments)
-            .FirstOrDefaultAsync(g => g.Id.Value == request.GroupId)
-            ?? throw new UnknownGroupWhenAssigningKeeper(request.GroupId);
+            .FirstOrDefaultAsync(g => g.Id.Value == request.GroupId, cancel)
+            ?? throw new UnknownGroupForAssigningKeeper(request.GroupId);
 
         group.AssignKeeper(new(request.KeeperId), DateOnly.FromDateTime(request.AssignDate));
 
@@ -37,10 +37,10 @@ public class AssignKeeperEndpoint(ILogger<AssignKeeperEndpoint> _logger, AssignK
     }
 }
 
-public class UnknownGroupWhenAssigningKeeper : DomainError
+public class UnknownGroupForAssigningKeeper : DomainError
 {
-    public UnknownGroupWhenAssigningKeeper(Guid groupId)
+    public UnknownGroupForAssigningKeeper(Guid groupId)
     {
-        Details = $"Unknown group {groupId} when assigning keeper.";
+        Details = $"Unknown group {groupId} for assigning keeper.";
     }
 }

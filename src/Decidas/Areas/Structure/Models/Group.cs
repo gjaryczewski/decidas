@@ -3,7 +3,7 @@ using Decidas.Shared;
 
 namespace Decidas.Areas.Structure.Models;
 
-public class Group : DomainEntity
+public class Group : DomainEventPublisher
 {
     public GroupId Id { get; private set; } = default!;
 
@@ -24,16 +24,16 @@ public class Group : DomainEntity
             StartDate = new(startDate)
         };
 
-        group.AddDomainEvent(new GroupCreated(group.Id.Value));
+        group.PublishDomainEvent(new GroupCreated(group.Id.Value));
 
         return group;
     }
 
     public void AssignKeeper(KeeperId keeperId, DateOnly assignDate)
     {
-        Assignments.Add(new Assignment(Id, keeperId, assignDate));
+        Assignments.Add(Assignment.Create(Id, keeperId, assignDate));
 
-        AddDomainEvent(new KeeperAssignedToGroup(Id.Value, keeperId.Value));
+        PublishDomainEvent(new KeeperAssignedToGroup(Id.Value, keeperId.Value));
     }
 }
 

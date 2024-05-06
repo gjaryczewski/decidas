@@ -1,10 +1,10 @@
 namespace Decidas.Core;
 
-public class DomainEntity
+public class DomainEventPublisher
 {
     protected readonly List<DomainEvent> _domainEvents = [];
 
-    public void AddDomainEvent(DomainEvent domainEvent)
+    public void PublishDomainEvent(DomainEvent domainEvent)
     {
         _domainEvents.Add(domainEvent);
     }

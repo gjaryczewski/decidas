@@ -11,7 +11,7 @@ public class DesignateKeeperCommand(ILogger<DesignateKeeperCommand> _logger, App
 {
     public async Task<KeeperId> ExecuteAsync(DesignateKeeperRequest request, CancellationToken cancel)
     {
-        _logger.LogInformation("Executing DesignateKeeper command for member {memberId}", request.MemberId);
+        _logger.LogInformation("Designating member {memberId} as keeper", request.MemberId);
 
         var memberId = new MemberId(request.MemberId);
 
@@ -34,7 +34,7 @@ public class DesignateKeeperEndpoint(ILogger<DesignateKeeperEndpoint> _logger, D
     [HttpPost]
     public async Task<ActionResult<Guid>> HandleAsync([FromBody]DesignateKeeperRequest request, CancellationToken cancel)
     {
-        _logger.LogInformation("Handling DesignateKeeper request for member {memberId}", request.MemberId);
+        _logger.LogInformation("API request for designating member {memberId} as keeper", request.MemberId);
 
         var response = await _command.ExecuteAsync(request, cancel);
 

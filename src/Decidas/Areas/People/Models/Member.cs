@@ -3,7 +3,7 @@ using Decidas.Shared;
 
 namespace Decidas.Areas.People.Models;
 
-public class Member : DomainEntity
+public class Member : DomainEventPublisher
 {
     public MemberId Id { get; private set; } = default!;
 
@@ -30,7 +30,7 @@ public class Member : DomainEntity
             RegisterDate = DateOnly.FromDateTime(DateTime.Today)
         };
 
-        member.AddDomainEvent(new MemberRegisteredEvent(member.Id.Value));
+        member.PublishDomainEvent(new MemberRegisteredEvent(member.Id.Value));
 
         return member;
     }
@@ -39,7 +39,7 @@ public class Member : DomainEntity
     {
         var keeper = Keeper.Create(Id, designateDate);
 
-        keeper.AddDomainEvent(new KeeperDesignatedEvent(keeper.Id.Value));
+        keeper.PublishDomainEvent(new KeeperDesignatedEvent(keeper.Id.Value));
 
         return keeper;
     }

@@ -13,7 +13,7 @@ public static class ServicesRegistration
         // Queries
         services.AddTransient<GetMemberQuery>();
         services.AddTransient<GetMemberListQuery>();
-        services.AddTransient<GetKeeperQuery>();
+        services.AddTransient<GetKeeperDetailsCommand>();
         services.AddTransient<GetKeeperListQuery>();
 
         // Events
