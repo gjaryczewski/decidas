@@ -31,6 +31,11 @@ public class Group : DomainEventPublisher
 
     public void AssignKeeper(KeeperId keeperId, DateOnly assignDate)
     {
+        if (Assignments.Count == 2)
+        {
+            throw new LimitedNumberOfAssignedKeepers();
+        }
+
         var assignment = Assignment.Create(Id, keeperId, assignDate);
         Assignments.Add(assignment);
 
@@ -77,6 +82,14 @@ public class TooOldStartDate : DomainError
     public TooOldStartDate(DateOnly startDate)
     {
         Details = $"Start date {startDate} is earlier than oldest possible {GroupStartDate.Oldest}.";
+    }
+}
+
+public class LimitedNumberOfAssignedKeepers : DomainError
+{
+    public LimitedNumberOfAssignedKeepers()
+    {
+        Details = $"Assigning the new keeper is not possible. Number of keepers assigned to a group is limited to 2.";
     }
 }
 
