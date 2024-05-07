@@ -18,7 +18,8 @@ public class AssignKeeperCommand(ILogger<AssignKeeperCommand> _logger, Applicati
         var group = await _db.Groups.FirstOrDefaultAsync(g => g.Id == groupId, cancel)
             ?? throw new UnknownGroupForAssigningKeeper(request.GroupId);
 
-        group.AssignKeeper(new(request.KeeperId), DateOnly.FromDateTime(request.AssignDate));
+        var keeperId = new KeeperId(request.KeeperId);
+        group.AssignKeeper(keeperId, DateOnly.FromDateTime(request.AssignDate));
 
         await _keepingPolicy.EvaluateAsync(keeperId, cancel);
 
