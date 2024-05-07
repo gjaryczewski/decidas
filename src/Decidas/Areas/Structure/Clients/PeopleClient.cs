@@ -1,10 +1,10 @@
-using Decidas.Areas.People.Features;
+using Decidas.Areas.People;
 
 namespace Decidas.Areas.Structure.Clients;
 
 public class PeopleClient(GetKeeperListQuery _keeperList)
 {
-    public async Task<List<KeeperDetails>> GetKeeperList(CancellationToken cancel)
+    public async Task<List<KeeperDetails>> GetKeeperListAsync(CancellationToken cancel)
     {
         var request = new KeeperListRequest(1, 100);
 

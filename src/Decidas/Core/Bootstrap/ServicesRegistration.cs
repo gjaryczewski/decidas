@@ -1,11 +1,10 @@
-using Decidas.Core;
 using Microsoft.EntityFrameworkCore;
 
-namespace Decidas.Core;
+namespace Decidas.Core.Bootstrap;
 
 public static class ServicesRegistration
 {
-    public static IServiceCollection AddCoreServices(this IServiceCollection services, IConfigurationManager configuration)
+    public static IServiceCollection AddCore(this IServiceCollection services, IConfigurationManager configuration)
     {
         // Entity Framework
         services.AddDbContext<ApplicationDb>(options =>

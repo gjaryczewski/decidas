@@ -1,4 +1,4 @@
-using Decidas.Areas.Structure.Features;
+using Decidas.Areas.Structure;
 using Decidas.Areas.Structure.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;

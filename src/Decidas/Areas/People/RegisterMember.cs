@@ -2,7 +2,7 @@ using Decidas.Core;
 using Decidas.Areas.People.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Decidas.Areas.People.Features;
+namespace Decidas.Areas.People;
 
 public record RegisterMemberRequest(string Name, string Email, string Password);
 

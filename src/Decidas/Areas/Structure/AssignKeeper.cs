@@ -4,7 +4,7 @@ using Decidas.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Decidas.Areas.Structure.Features;
+namespace Decidas.Areas.Structure;
 
 public record AssignKeeperRequest(Guid GroupId, Guid KeeperId, DateTime AssignDate);
 

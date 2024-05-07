@@ -3,7 +3,7 @@ using Decidas.Shared;
 
 namespace Decidas.Areas.Structure.Models;
 
-public class Group : DomainEventPublisher
+public class Group
 {
     public GroupId Id { get; private set; } = default!;
 
@@ -24,8 +24,6 @@ public class Group : DomainEventPublisher
             StartDate = new(startDate)
         };
 
-        group.PublishDomainEvent(new GroupCreated(group.Id.Value));
-
         return group;
     }
 
@@ -38,8 +36,6 @@ public class Group : DomainEventPublisher
 
         var assignment = Assignment.Create(Id, keeperId, assignDate);
         Assignments.Add(assignment);
-
-        PublishDomainEvent(new KeeperAssignedToGroup(Id.Value, keeperId.Value));
     }
 }
 
@@ -91,19 +87,6 @@ public class LimitedNumberOfAssignedKeepers : DomainError
     {
         Details = $"Assigning the new keeper is not possible. Number of keepers assigned to a group is limited to 2.";
     }
-}
-
-#endregion
-
-#region Events
-
-public class GroupCreated(Guid id) : DomainEvent(id) {}
-
-public class KeeperAssignedToGroup(Guid groupId, Guid keeperId) : DomainEvent(null)
-{
-    public Guid GroupId { get; }= groupId;
-
-    public Guid Keeper { get; }= keeperId;
 }
 
 #endregion

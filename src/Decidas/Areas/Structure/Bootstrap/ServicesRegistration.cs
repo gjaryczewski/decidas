@@ -1,28 +1,23 @@
 using Decidas.Areas.Structure.Clients;
-using Decidas.Areas.Structure.Features;
 using Decidas.Areas.Structure.Policies;
 
-namespace Decidas.Areas.Structure;
+namespace Decidas.Areas.Structure.Bootstrap;
 
 public static class ServicesRegistration
 {
-    public static IServiceCollection AddAreaStructureServices(this IServiceCollection services)
+    public static IServiceCollection AddAreaStructure(this IServiceCollection services)
     {
-        // Commands
+        // Features
         services.AddTransient<AssignKeeperCommand>();
         services.AddTransient<CreateGroupCommand>();
-
-        // Queries
-        services.AddTransient<GetGroupQuery>();
         services.AddTransient<GetGroupListQuery>();
-
-        // Events
-
-        // Clients
-        services.AddTransient<PeopleClient>();
+        services.AddTransient<GetGroupQuery>();
 
         // Policies
         services.AddTransient<KeepingPolicy>();
+
+        // Clients
+        services.AddTransient<PeopleClient>();
 
         return services;
     }

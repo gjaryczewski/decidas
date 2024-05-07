@@ -3,7 +3,7 @@ using Group = Decidas.Areas.Structure.Models.Group;
 using Microsoft.AspNetCore.Mvc;
 using Decidas.Areas.Structure.Models;
 
-namespace Decidas.Areas.Structure.Features;
+namespace Decidas.Areas.Structure;
 
 public record CreateGroupRequest(string Name, DateTime StartDate);
 

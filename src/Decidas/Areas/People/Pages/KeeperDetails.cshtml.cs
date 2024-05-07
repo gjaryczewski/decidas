@@ -1,4 +1,4 @@
-using Decidas.Areas.People.Features;
+using Decidas.Areas.People;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 

@@ -1,5 +1,5 @@
 using Decidas.Areas.Structure.Clients;
-using Decidas.Areas.Structure.Features;
+using Decidas.Areas.Structure;
 using Decidas.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -41,7 +41,7 @@ public class AssignKeeperModel(PeopleClient _peopleClient, GetGroupQuery _getGro
         GroupId = group!.Id;
         GroupName = group!.Name;
 
-        var response = await _peopleClient.GetKeeperList(cancel);
+        var response = await _peopleClient.GetKeeperListAsync(cancel);
         if (response == null)
         {
             return NotFound();

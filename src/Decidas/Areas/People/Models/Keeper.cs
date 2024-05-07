@@ -3,7 +3,7 @@ using Decidas.Shared;
 
 namespace Decidas.Areas.People.Models;
 
-public class Keeper : DomainEventPublisher
+public class Keeper
 {
     public KeeperId Id { get; private set; } = default!;
 

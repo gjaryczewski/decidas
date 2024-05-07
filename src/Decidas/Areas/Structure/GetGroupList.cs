@@ -4,7 +4,7 @@ using Decidas.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Decidas.Areas.Structure.Features;
+namespace Decidas.Areas.Structure;
 
 public record GetGroupListRequest(int Page, int PerPage);
 

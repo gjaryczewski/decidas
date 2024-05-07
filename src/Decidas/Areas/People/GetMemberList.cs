@@ -3,7 +3,7 @@ using Decidas.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Decidas.Areas.People.Features;
+namespace Decidas.Areas.People;
 
 public record GetMemberListRequest(int Page, int PerPage);
 
