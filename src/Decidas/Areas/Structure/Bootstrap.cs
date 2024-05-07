@@ -1,11 +1,11 @@
 using Decidas.Areas.Structure.Clients;
 using Decidas.Areas.Structure.Policies;
 
-namespace Decidas.Areas.Structure.Bootstrap;
+namespace Decidas.Areas.Structure;
 
-public static class ServicesRegistration
+public static class Bootstrap
 {
-    public static IServiceCollection AddAreaStructure(this IServiceCollection services)
+    public static IServiceCollection AddStructureModule(this IServiceCollection services)
     {
         // Features
         services.AddTransient<AssignKeeperCommand>();

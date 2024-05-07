@@ -1,16 +1,16 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace Decidas.Core.Bootstrap;
+namespace Decidas.Core;
 
-public static class ServicesRegistration
+public static class Bootstrap
 {
-    public static IServiceCollection AddCore(this IServiceCollection services, IConfigurationManager configuration)
+    public static IServiceCollection AddCoreModule(this IServiceCollection services, IConfigurationManager configuration)
     {
         // Entity Framework
         services.AddDbContext<ApplicationDb>(options =>
             options.UseSqlServer(configuration.GetConnectionString("ApplicationDb")));
 
-        // Global exceptions
+        // Domain error handler
         services.AddExceptionHandler<DomainErrorHandler>();
 
         return services;

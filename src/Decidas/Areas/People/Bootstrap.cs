@@ -1,10 +1,8 @@
-using Decidas.Areas.People;
+namespace Decidas.Areas.People;
 
-namespace Decidas.Areas.People.Bootstrap;
-
-public static class ServicesRegistration
+public static class Bootstrap
 {
-    public static IServiceCollection AddAreaPeople(this IServiceCollection services)
+    public static IServiceCollection AddPeopleModule(this IServiceCollection services)
     {
         // Features
         services.AddTransient<DesignateKeeperCommand>();

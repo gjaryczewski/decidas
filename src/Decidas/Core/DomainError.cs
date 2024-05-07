@@ -1,5 +1,3 @@
-using System.Net;
-
 namespace Decidas.Core;
 
 public class DomainError : Exception

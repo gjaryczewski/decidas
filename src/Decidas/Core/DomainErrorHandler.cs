@@ -1,22 +1,17 @@
 using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Decidas.Core;
 
 public class DomainErrorHandler : IExceptionHandler
 {
-    public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancel)
+    public ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancel)
     {
-        if(exception is not DomainError)
+        if (exception is DomainError)
         {
-            return false;
+            httpContext.Response.StatusCode = (int)HttpStatusCode.UnprocessableContent;
         }
 
-        httpContext.Response.StatusCode = (int)HttpStatusCode.UnprocessableContent;
-
-        await httpContext.Response.WriteAsJsonAsync(exception.Message, cancel);
-
-        return true;
+        return new ValueTask<bool>(false);
     }
 }

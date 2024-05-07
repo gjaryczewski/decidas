@@ -1,6 +1,6 @@
-using Decidas.Areas.People.Bootstrap;
-using Decidas.Areas.Structure.Bootstrap;
-using Decidas.Core.Bootstrap;
+using Decidas.Areas.People;
+using Decidas.Areas.Structure;
+using Decidas.Core;
 
 namespace Decidas;
 
@@ -17,9 +17,9 @@ public class Program
         builder.Services.AddSwaggerGen();
         builder.Services.AddProblemDetails();
 
-        builder.Services.AddCore(configuration);
-        builder.Services.AddAreaStructure();
-        builder.Services.AddAreaPeople();
+        builder.Services.AddCoreModule(configuration);
+        builder.Services.AddStructureModule();
+        builder.Services.AddPeopleModule();
 
         builder.Services.Configure<RouteOptions>(options =>
         {
