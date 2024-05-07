@@ -8,7 +8,7 @@ public class KeepingPolicy(ApplicationDb _db)
 {
     public const int MaxAssignmentsPerKeeper = 2;
 
-    public async Task EvaluateAsync(KeeperId keeperId)
+    public async Task EvaluateAsync(KeeperId keeperId, CancellationToken cancel)
     {
         var assigned = await _db.Assignments.Where(a => a.KeeperId == keeperId).CountAsync();
         if (assigned >= MaxAssignmentsPerKeeper)
