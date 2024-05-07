@@ -3,12 +3,17 @@ using Decidas.Areas.Structure.Policies;
 using Decidas.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace Decidas.Areas.Structure;
 
 public record AssignKeeperRequest(Guid GroupId, Guid KeeperId, DateTime AssignDate);
 
-public class AssignKeeperCommand(ILogger<AssignKeeperCommand> _logger, ApplicationDb _db, KeepingPolicy _keepingPolicy)
+public class AssignKeeperCommand(
+    ILogger<AssignKeeperCommand> _logger,
+    ApplicationDb _db,
+    IOptions<FeatureFlags> _featureFlags,
+    KeepingPolicy _keepingPolicy)
 {
     public async Task ExecuteAsync(AssignKeeperRequest request, CancellationToken cancel)
     {
@@ -21,7 +26,10 @@ public class AssignKeeperCommand(ILogger<AssignKeeperCommand> _logger, Applicati
         var keeperId = new KeeperId(request.KeeperId);
         group.AssignKeeper(keeperId, DateOnly.FromDateTime(request.AssignDate));
 
-        await _keepingPolicy.EvaluateAsync(keeperId, cancel);
+        if (_featureFlags.Value.EnableKeepingPolicy)
+        {
+            await _keepingPolicy.EvaluateAsync(keeperId, cancel);
+        }
 
         await _db.SaveChangesAsync(cancel);
     }
