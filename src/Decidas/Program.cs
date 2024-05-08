@@ -48,6 +48,8 @@ public class Program
 
         app.UseHttpsRedirection();
 
+        app.UseStatusCodePagesWithReExecute("/errors/{0}");
+
         app.UseStaticFiles();
 
         app.UseRouting();
