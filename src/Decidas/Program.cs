@@ -31,29 +31,21 @@ public class Program
         var app = builder.Build();
 
         app.UseExceptionHandler();
-
         if (app.Environment.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
-
             app.UseSwagger();
             app.UseSwaggerUI();
         }
         else
         {
             app.UseExceptionHandler("/Error");
-
             app.UseHsts();
         }
-
         app.UseHttpsRedirection();
-
-        app.UseStatusCodePagesWithReExecute("/errors/{0}");
-
         app.UseStaticFiles();
-
+        app.UseStatusCodePagesWithReExecute("/Error");
         app.UseRouting();
-
         app.MapRazorPages();
         app.MapControllers();
 
