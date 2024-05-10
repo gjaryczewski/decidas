@@ -30,10 +30,8 @@ public class Program
 
         var app = builder.Build();
 
-        app.UseExceptionHandler();
         if (app.Environment.IsDevelopment())
         {
-            app.UseDeveloperExceptionPage();
             app.UseSwagger();
             app.UseSwaggerUI();
         }
