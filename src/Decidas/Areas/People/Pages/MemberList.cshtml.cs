@@ -1,19 +1,12 @@
-using Decidas.Areas.People;
 using Decidas.Areas.People.Models;
+using Decidas.Pages.Shared;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Decidas.Areas.People.Pages;
 
-public class MemberListModel(GetMemberListQuery _query) : PageModel
+public class MemberListModel(GetMemberListQuery _query) : PaginatedPageModel
 {
     public List<MemberType> Items { get; set; } = [];
-
-    public int Count { get; set; }
-
-    public int PageNumber { get; set; }
-
-    public int PerPage { get; set; }
 
     public async Task<IActionResult> OnGetAsync(int page = 1, int perPage = 30, CancellationToken cancel = default)
     {

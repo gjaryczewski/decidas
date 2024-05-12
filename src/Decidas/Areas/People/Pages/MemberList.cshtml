@@ -26,5 +26,23 @@ else
     </li>
   }
   </ul>
+  <div class="row">
+    <ul class="pagination">
+        <li class="page-item @(!Model.ShowFirstPage? "disabled":"")">
+            <a asp-page="/." asp-route-CurrentPage="1" class="page-link"><i class="bi bi-skip-backward"></i></a>
+        </li>
+
+        <li class="page-item @(!Model.ShowPreviousPage? "disabled":"")">
+            <a asp-page="/." asp-route-CurrentPage="@(Model.PageNumber -1)" class="page-link"><i class="bi bi-backward"></i></a>
+        </li>
+        <li class="page-item  @(!Model.ShowNextPage? "disabled":"")">
+            <a asp-page="/." asp-route-CurrentPage="@(Model.PageNumber + 1)" class="page-link"><i class="bi bi-forward"></i></a>
+        </li>
+
+        <li class="page-item  @(!Model.ShowLastPage? "disabled":"")">
+            <a asp-page="/." asp-route-CurrentPage="@Model.TotalPages" class="page-link"><i class="bi bi-fast-forward"></i></a>
+        </li>
+    </ul>
+  </div>
 }
 </div>
