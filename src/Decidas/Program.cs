@@ -39,8 +39,8 @@ public class Program
         {
             app.UseExceptionHandler("/Error");
             app.UseHsts();
+            app.UseHttpsRedirection();
         }
-        app.UseHttpsRedirection();
         app.UseStaticFiles();
         app.UseStatusCodePagesWithReExecute("/Error");
         app.UseRouting();
