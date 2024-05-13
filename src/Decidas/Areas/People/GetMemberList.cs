@@ -7,25 +7,7 @@ namespace Decidas.Areas.People;
 
 public record GetMemberListRequest(int Page, int PerPage);
 
-public class MemberList(int page, int perPage)
-{
-    public List<MemberType> Items { get; } = [];
-
-    public int Count => Items.Count;
-
-    public int Page { get; } = page switch
-    {
-        <= 0 => 1,
-        _ => page,
-    };
-
-    public int PerPage { get; } = perPage switch
-    {
-        <= 0 => 30,
-        > 100 => 100,
-        _ => perPage,
-    };
-}
+public class MemberList(int page, int perPage) : PaginatedList<MemberType>(page, perPage) {}
 
 public class GetMemberListQuery(ILogger<GetMemberListQuery> _logger, ApplicationDb _db)
 {
