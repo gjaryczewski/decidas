@@ -6,25 +6,7 @@ namespace Decidas.Areas.People;
 
 public record KeeperListRequest(int Page, int PerPage);
 
-public class KeeperList(int page, int perPage)
-{
-    public List<KeeperDetails> Items { get; } = [];
-
-    public int Count => Items.Count;
-
-    public int Page { get; } = page switch
-    {
-        <= 0 => 1,
-        _ => page,
-    };
-
-    public int PerPage { get; } = perPage switch
-    {
-        <= 0 => 30,
-        > 100 => 100,
-        _ => perPage,
-    };
-}
+public class KeeperList(int page, int perPage) : PaginatedList<KeeperDetails>(page, perPage) {}
 
 public class GetKeeperListQuery(ILogger<GetKeeperListQuery> _logger, ApplicationDb _db)
 {
