@@ -6,6 +6,12 @@
 
 <div class="container">
   <h1>@ViewData["Title"]</h1>
+@if (Model.HasErrorMessage)
+{
+  <div class="alert alert-danger" role="alert">
+    @Model.ErrorMessage
+  </div>
+}
   <form method="post">
     <input type="hidden" name="MemberId" value="@Model.MemberId">
     <div class="form-group col-md-4">

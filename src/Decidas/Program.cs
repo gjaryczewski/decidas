@@ -42,7 +42,7 @@ public class Program
             app.UseHttpsRedirection();
         }
         app.UseStaticFiles();
-        app.UseStatusCodePagesWithReExecute("/Error");
+        app.UseStatusCodePagesWithReExecute("/Errors/{0}");
         app.UseRouting();
         app.MapRazorPages();
         app.MapControllers();

@@ -3,6 +3,7 @@ using Decidas.Areas.Structure;
 using Decidas.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Decidas.Core;
 
 namespace Decidas.Areas.Structure.Pages;
 
@@ -22,6 +23,10 @@ public class AssignKeeperModel(PeopleClient _peopleClient, GetGroupQuery _getGro
 
     [BindProperty]
     public List<KeeperName> Keepers { get; set; } = [];
+
+    public string ErrorMessage { get; private set; } = string.Empty;
+
+    public bool HasErrorMessage => !string.IsNullOrEmpty(ErrorMessage);
 
     public async Task<IActionResult> OnGetAsync(Guid? groupId, CancellationToken cancel)
     {
@@ -56,9 +61,24 @@ public class AssignKeeperModel(PeopleClient _peopleClient, GetGroupQuery _getGro
     {
         var request = new AssignKeeperRequest(GroupId, KeeperId, AssignDate.ToDateTime());
 
-        await _assignKeeper.ExecuteAsync(request, cancel);
+        try
+        {
+            await _assignKeeper.ExecuteAsync(request, cancel);
 
-        return RedirectToPage("GroupDetails", new { id = GroupId } );
+            return RedirectToPage("GroupDetails", new { id = GroupId } );
+        }
+        catch(DomainError error)
+        {
+            ErrorMessage = error.Details;
+
+            return Page();
+        }
+        catch
+        {
+            throw;
+        }
+
+
     }
 
     public record KeeperName(Guid Id, string Name);

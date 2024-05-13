@@ -1,4 +1,4 @@
-using Decidas.Areas.People;
+using Decidas.Core;
 using Decidas.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -15,6 +15,10 @@ public class DesignateKeeperModel(GetMemberQuery _query, DesignateKeeperCommand 
     
     [BindProperty]
     public DateOnly DesignateDate { get; set; } = DateOnly.FromDateTime(DateTime.Today);
+
+    public string ErrorMessage { get; private set; } = string.Empty;
+
+    public bool HasErrorMessage => !string.IsNullOrEmpty(ErrorMessage);
 
     public async Task<IActionResult> OnGetAsync(Guid? id, CancellationToken cancel)
     {
@@ -42,8 +46,21 @@ public class DesignateKeeperModel(GetMemberQuery _query, DesignateKeeperCommand 
     {
         var request = new DesignateKeeperRequest(MemberId, DesignateDate.ToDateTime());
 
-        var response = await _command.ExecuteAsync(request, cancel);
+        try
+        {
+            var response = await _command.ExecuteAsync(request, cancel);
 
-        return RedirectToPage("KeeperDetails", new { id = response.Value } );
+            return RedirectToPage("KeeperDetails", new { id = response.Value } );
+        }
+        catch(DomainError error)
+        {
+            ErrorMessage = error.Details;
+
+            return Page();
+        }
+        catch
+        {
+            throw;
+        }
     }
 }
